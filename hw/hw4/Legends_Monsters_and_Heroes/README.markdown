@@ -12,7 +12,7 @@ win, they gain some experience and some money. When they accumulate enough exper
 they level up which means that their skills become stronger. The goal of the game is for the 
 heroes to gain experience and level up indefinitely.
 
-#### **I.Items:**
+### **I.Items:**
 **weapon:** A weapon has a name, a price and a minimum hero level required to be used by a hero. It has a specific 
         amount of damage that it can inflict, and it may require one or two hands to be 
         used.
@@ -42,7 +42,7 @@ o fire spell: apart from the damage it causes it also reduces the defense of
 o lightning spell: apart from the damage it causes it also reduces the 
                  dodge chance of the enemy.
                  
-#### II.Heroes:
+### II.Heroes:
 The heroes have a name, a level and some health power (called HP ). When their hp becomes equal to zero the 
 hero faints. They also have some mana and some skills that affect their fighting 
 efficiency. Those skills are strength, 
@@ -67,7 +67,7 @@ o Paladins are favored on strength and dexterity.
 Favored means that their starting stats on those sectors will be increased and that every 
 time they level up those statistics will be furtherly boosted.
 
-#### III.Monsters:
+### III.Monsters:
 
 Monsters have a name, some HP, and a level. Their stats include a base damage that they 
 can inflict, a defense stat, which is deducted from the damage of an incoming attack and a 
@@ -80,7 +80,7 @@ o Exoskeletons have increased defense
 
 o Spirits have a higher dodge chance
 
-#### IV.Map:
+### IV.Map:
 
 The map of the game is represented by a grid of specific dimensions. The 
 grid contains tiles which may be inaccessible, marketplaces, or common tiles/cells. As 
@@ -88,7 +88,7 @@ the name suggests, heroes cannot access a non-accessible tile. The heroes can bu
 from the market if they have enough money to do so. Moreover, they can sell the items in their inventory for half the price at which they were bought.
 
 
-#### V.Fight:
+### V.Fight:
 When players enter a normal cell, player will have a chance of 30% encountering
 with monsters. The number of monsters is the same as that of heroes and their level
 is the same as the highest level of heroes.
@@ -100,13 +100,13 @@ hero faints or monster is dead, the winner will go to help his partner.
 
 After the fight, every survived hero will get 2 exp and 100 * level money as reward.
 
-#### VI.Manual:
+### VI.Manual:
 
 Manual is only available when hero is moving on the map or is in the market.
 It can be opened by entering `m`. You can open inventory, quit game, show hero stats
 and open operating instructions through it.
 
-#### VI.Controls:
+### VII.Controls:
 At the beginning, player can select no more that 3 unique heroes. Enter the names of them and 
 `w` - move up
 
@@ -120,13 +120,37 @@ At the beginning, player can select no more that 3 unique heroes. Enter the name
 
 `m` - open manual
 
-`c` - close manual
+`c` - close manual (in manual)
 
-`i` - open inventory
+`i` - open inventory (in manual)
 
-`s` - show stats
+`s` - show stats (in manual)
 
-`h` - open operating instructions
+`h` - open operating instructions (in manual)
 
-`q` - quit game
+`q` - quit game (in manual)
 
+### VIII.Notes:
+* A spell’s final damage can be calculated by the following formula: spells_base_damage + (dexterity/10000)*spells_base_damage.
+
+* Hp of both heroes and monsters can be calculated as: 100 * their_level. 
+When a hero levels up then this formula is used to reset and calculate her/his hp.
+
+* The mana of the heroes when they level up can be calculated as: current_mana*1.1.
+
+* The damage a hero causes with an attack with their weapon can be calculated as: (strength + weapon damage)*0.05.
+
+* A hero has a probability of dodging an attack which can be calculated as: agility * 0.001.
+
+* A monster has a probability of dodging an attack, which can be calculated as: dodge_chance * 0.01.
+
+* A hero needs to acquire their_current_level * 10 more experience points to level up. 
+  Exp will reduce according points when they level up.
+  
+* When a hero levels up all of their skills get increased by 5% and their favored skills get an extra 5% increase.
+
+* After every round of a fight the heroes regain 10% of their hp and 10% of their mana.
+
+* After every successful fight each hero who did not faint gains 100* monsters_level coins and 2 exp for their troubles.
+
+* The level of the enemy’s skill deterioration that is caused from each of the spells is equal to 10%.
