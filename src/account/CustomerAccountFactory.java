@@ -1,3 +1,5 @@
+package account;
+
 public class CustomerAccountFactory {
 
     public CustomerAccount getCustomerAccount(String accountType){

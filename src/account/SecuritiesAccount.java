@@ -1,3 +1,7 @@
+package account;
+
+import assets.Stock;
+
 public class SecuritiesAccount extends CustomerAccount {
     
 

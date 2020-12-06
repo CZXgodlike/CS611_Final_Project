@@ -1,14 +1,18 @@
-/**
+package account; /**
  * BankATM
  *
  * @author Zhuyun Chen
  * @note Part of final
  */
+import assets.Customer;
+import services.StockMarket;
+
+import java.io.File;
 import java.util.*;
 
 public class BankerAccount extends Account {
     
-    protected Arraylist<Customer> customers; // A list of all customers
+    protected ArrayList<Customer> customers; // A list of all customers
     
     /** Constructor */
     public BankerAccount(String password, File data){
