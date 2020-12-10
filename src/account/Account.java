@@ -1,4 +1,5 @@
-package account; /**
+package account;
+/**
  * BankATM
  *
  * @author Zhuyun Chen
@@ -18,7 +19,7 @@ public abstract class Account{
     /** Default Constructor */
     public Account(){
         this.name = "TempAccount";
-        this.id = "0";
+        this.id = 0;
         this.password = "0";
     }
     

@@ -19,7 +19,7 @@ public class BankATM{
     
     /** Default Constructor */
     public BankATM(){
-        window = new JFrame("BankATM")
+        window = new JFrame("BankATM");
         window.setSize(400,200);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel jp = new JPanel();

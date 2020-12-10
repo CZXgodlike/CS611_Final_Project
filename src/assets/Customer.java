@@ -5,7 +5,7 @@ import account.Account;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer implements User {
+public class Customer extends User {
     private List<Account> customerAccts;
 
     public Customer(){
@@ -16,7 +16,7 @@ public class Customer implements User {
         this.customerAccts = customerAcct;
     }
 
-    public List<Account> getCustomerAccts() {
+    public List<Account> getAccounts() {
         return this.customerAccts;
     }
 }
