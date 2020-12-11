@@ -4,45 +4,23 @@ import assets.Stock;
 import controller.StockDataController;
 
 import javax.swing.table.AbstractTableModel;
-import java.io.IOException;
 import java.util.List;
 
-public class StockTableModel extends AbstractTableModel {
+public class StockDisplayModel extends AbstractTableModel {
 
     private List<Stock> db;
     private String[] colNames = {"Symbol", "Company", "Last", "Chng", "% Chng", "Volume", "$ Traded"};
-    private StockDataController controller;
-    private StockDataEditTablePanel table;
 
-
-    public StockTableModel(StockDataEditTablePanel table) {
-        this.controller = new StockDataController();
-        this.table = table;
+    public StockDisplayModel(){
     }
 
     public void setData(List<Stock> db) {
         this.db = db;
-        this.controller = new StockDataController();
     }
 
     @Override
     public String getColumnName(int column) {
         return colNames[column];
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        try {
-            controller.setDataAt((String) aValue, rowIndex, columnIndex);
-            table.refresh();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

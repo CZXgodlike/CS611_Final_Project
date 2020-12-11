@@ -9,13 +9,14 @@ import java.io.IOException;
 
 public class StockDataManagementMainFrame extends JFrame {
 
-    private TablePanel tablePanel;
+    private StockDataEditTablePanel tablePanel;
     private StockDataController controller;
     private AddStockPanel addStockPanel;
+
     public StockDataManagementMainFrame() throws IOException {
         super("Stock Market");
 
-        tablePanel = new TablePanel();
+        tablePanel = new StockDataEditTablePanel();
         controller = new StockDataController();
         addStockPanel = new AddStockPanel();
 
@@ -55,7 +56,7 @@ public class StockDataManagementMainFrame extends JFrame {
         add(addStockPanel, BorderLayout.WEST);
     }
 
-    public static void main(String[] args) throws IOException {
-        StockDataManagementMainFrame stockDataManagementMainFrame = new StockDataManagementMainFrame();
-    }
+//    public static void main(String[] args) throws IOException {
+//        StockDataManagementMainFrame stockDataManagementMainFrame = new StockDataManagementMainFrame();
+//    }
 }
