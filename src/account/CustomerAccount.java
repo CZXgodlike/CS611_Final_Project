@@ -18,30 +18,30 @@ public class CustomerAccount extends Account {
         this("","Password", -1, new File(""));
     }
 
-    public void open() throws IOException {
+    public void open() {
         // New account, add account info and create path to files and display
-        Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
-        Path pathBase = Paths.get("../../");
-        Path pathRelative = pathBase.relativize(pathAbsolute);
-        File tempFile = new File(pathRelative.toUri());
+
+        File tempFile = getCustomerData();
 
         if(tempFile.exists()){
             validatePassword(password);
         } else{
-            if(tempFile.createNewFile()){
-                System.out.println("File successfully made");
+            try {
+                if (tempFile.createNewFile()) {
+                    System.out.println("File successfully made");
+                } else {
+                    System.out.println("File was not made");
+                }
             }
-            else{
-                System.out.println("File was not made");
+            catch (IOException e){
+                e.printStackTrace();
             }
         }
     }
 
     private boolean validatePassword(String password){
-        Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
-        Path pathBase = Paths.get("../../");
-        Path pathRelative = pathBase.relativize(pathAbsolute);
-        try (BufferedReader csvReader = new BufferedReader(new FileReader(pathRelative.toString()))) {
+        File tempFile = getCustomerData();
+        try (BufferedReader csvReader = new BufferedReader(new FileReader(tempFile.getAbsolutePath()))) {
 
             List<String[]> info = new ArrayList<>();
             String row;
@@ -50,6 +50,7 @@ public class CustomerAccount extends Account {
                 info.add(data);
             }
             if(info.size() == 0){
+                System.out.println("There is no information for this account, but it exists!");
                 return false;
             }
             if(password.equals(info.get(0)[1])){
@@ -68,10 +69,7 @@ public class CustomerAccount extends Account {
 
     public void close(){
         // Delete the account and all relevant info
-        Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
-        Path pathBase = Paths.get("../../");
-        Path pathRelative = pathBase.relativize(pathAbsolute);
-        File tempFile = new File(pathRelative.toUri());
+        File tempFile = getCustomerData();
 
         if(tempFile.exists()){
 
@@ -86,7 +84,8 @@ public class CustomerAccount extends Account {
     }
 
     public void transaction(Account acct){
-
+        if(acct instanceof CustomerAccount){
+        }
     }
 
     public void transfer(Account acct){
@@ -103,5 +102,12 @@ public class CustomerAccount extends Account {
 
     public void getDailyReport(Date date){
 
+    }
+
+    public File getCustomerData(){
+        Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
+        Path pathBase = Paths.get("../../");
+        Path pathRelative = pathBase.relativize(pathAbsolute);
+        return new File(pathRelative.toUri());
     }
 }
