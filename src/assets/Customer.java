@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends User {
-    private String userName;
-    private String password;
     private List<Account> customerAccts;
 
 
