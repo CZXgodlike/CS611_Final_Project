@@ -26,13 +26,6 @@ public class BankerAccount extends Account {
     public void getDailyReport(Date date){
         
     }
-
-    /** Checkup all customers */
-    public void checkUpCustomers(){
-        for(Customer c: customers){
-            checkUp(c);
-        }
-    }
     
     /** Checkup a specific customer */
     public void checkUp(Customer customer){
