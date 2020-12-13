@@ -1,6 +1,6 @@
 package controller;
 
-import asset.customer;
+import assets.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -20,4 +20,8 @@ public class SecuritiesAccount extends CustomerAccount {
     public void checkProfits(){
 
     }
+
+    public void display(){
+        // Connect to the GUI
+    }
 }

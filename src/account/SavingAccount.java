@@ -9,4 +9,8 @@ public class SavingAccount extends CustomerAccount {
     public void transfer(){
         
     }
+
+    public void display(){
+        // Connect to the GUI
+    }
 }

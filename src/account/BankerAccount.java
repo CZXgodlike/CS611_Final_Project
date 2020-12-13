@@ -64,10 +64,10 @@ public class BankerAccount extends Account {
     }
 
     public void display(){
-
+        // Connect to the GUI
     }
 
-    public void transfer(Account acct){
+    public void transfer(Account acct, double amount, int addOrSub){
 
     }
 }

@@ -52,6 +52,6 @@ public abstract class Account{
     public abstract void getDailyReport(Date date);
 
     /** transfer money to another accoun */
-    public abstract void transfer(Account otherAccount);
+    public abstract void transfer(Account otherAccount, double amount, int addOrSub);
 }
 
