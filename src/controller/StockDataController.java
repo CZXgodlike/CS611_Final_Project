@@ -1,11 +1,10 @@
 package controller;
 
 import assets.Stock;
- import com.opencsv.CSVReader;
- import com.opencsv.CSVWriter;
- import com.opencsv.exceptions.CsvException;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 import gui.AddStockEvent;
-import gui.TablePanel;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -70,6 +69,26 @@ public class StockDataController extends DataController{
         csvWriter.close();
     }
 
+    public void setDataAt(String value, int row, int col) throws IOException {
+        CSVReader reader = new CSVReader(new FileReader(dataPath));
+        List<String[]> csvBody = null;
+        try {
+            csvBody = reader.readAll();
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+        }
+// get CSV row column  and replace with by using row and column
+        assert csvBody != null;
+        csvBody.get(row)[col] = value;
+        reader.close();
 
+        CSVWriter writer = new CSVWriter(new FileWriter(dataPath), CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.NO_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        writer.writeAll(csvBody);
+        writer.flush();
+        writer.close();
+    }
 
 }
