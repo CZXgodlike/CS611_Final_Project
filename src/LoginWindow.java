@@ -7,6 +7,9 @@
  */
 import java.util.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class LoginWindow extends JFrame {
     private JFrame frame = new JFrame("Welcome");
@@ -18,16 +21,17 @@ public class LoginWindow extends JFrame {
     private JButton registerButton = new JButton("register");
     private JButton loginButton = new JButton("login");
     
-    public LoginWindow() {
-        frame.setSize(300, 200);
+    public LoginWindow(){
+        initListener();
         frame.setLocationRelativeTo(null);
+        frame.setSize(300, 200);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         placeComponents(panel);
         frame.setVisible(true);
     }
 
-    private void placeComponents(JPanel panel) {
+    private void placeComponents(JPanel panel){
         panel.setLayout(null);
         userLabel.setBounds(30, 30, 80, 25);
         panel.add(userLabel);
@@ -41,5 +45,24 @@ public class LoginWindow extends JFrame {
         panel.add(loginButton);
         registerButton.setBounds(190, 100, 80, 25);
         panel.add(registerButton);
+    }
+    
+    public void initListener(){
+        loginButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                // check if user name exist in customer accounts
+                String username = userText.getText();
+                String pass = new String(passText.getPassword());
+                // seek account info, currently just use default for testing
+                if (username.equals("admin") && pass.equals("123")){
+                    JOptionPane.showMessageDialog(null,"Login success");
+                    return;
+                }else{
+                    JOptionPane.showMessageDialog(null,"Login Failed");
+                    return;
+                }
+            }
+        });
     }
 }
