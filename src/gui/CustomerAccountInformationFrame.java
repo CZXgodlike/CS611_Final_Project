@@ -1,7 +1,6 @@
 package gui;
 
 import controller.CustomerAccountInformationController;
-import controller.StockDataController;
 
 import javax.swing.*;
 import java.awt.*;

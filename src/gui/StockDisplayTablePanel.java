@@ -20,8 +20,8 @@ public class StockDisplayTablePanel extends JPanel {
         table = new JTable(tableModel);
         controller = new StockDataController();
 
-        Border innerBorder = BorderFactory.createTitledBorder("Stock Market");
-        Border outerBorder = BorderFactory.createEmptyBorder(0, 5, 5, 5);
+        Border innerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        Border outerBorder = BorderFactory.createEtchedBorder();
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
         setLayout(new BorderLayout());
 

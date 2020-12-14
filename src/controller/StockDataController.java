@@ -24,7 +24,7 @@ public class StockDataController extends DataController{
     }
 
     private List<Stock> readData() throws IOException {
-        BufferedReader csvReader = new BufferedReader(new FileReader("data/stockData.csv"));
+        BufferedReader csvReader = new BufferedReader(new FileReader("data/stockData/stockData.csv"));
         List<Stock> stocks = new ArrayList<>();
         String row;
         //csvReader.readLine(); //skip the first line

@@ -21,7 +21,6 @@ public class StockMarketFrame extends JFrame {
         tablePanel.setData(controller.getData());
 
         setSize(750, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
         add(toolBar, BorderLayout.NORTH);

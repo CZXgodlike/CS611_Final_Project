@@ -4,6 +4,7 @@ import assets.CustomerAccountInformation;
 import controller.CustomerAccountInformationController;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +57,9 @@ public class CustomerAccountInformationTablePanel extends JPanel {
             }
         });
 
-        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        Border innerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
+        Border outerBorder = BorderFactory.createEtchedBorder();
+        setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 
         add(new JScrollPane(table), BorderLayout.CENTER);
     }

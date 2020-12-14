@@ -1,7 +1,5 @@
 package assets;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Stock {
@@ -35,60 +33,28 @@ public class Stock {
         traded = data.get(6);
     }
 
-    public Stock(){
-        this(new ArrayList<String>(Arrays.asList("","","","","","","")));
-    }
-
-    public void setChange(String change) {
-        this.change = change;
-    }
-
     public String getChange() {
         return change;
-    }
-
-    public void setChange_percentage(String change_percentage) {
-        this.change_percentage = change_percentage;
     }
 
     public String getChange_percentage() {
         return change_percentage;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
     public String getCompany() {
         return company;
-    }
-
-    public void setLast(String last) {
-        this.last = last;
     }
 
     public String getLast() {
         return last;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
     public String getSymbol() {
         return symbol;
     }
 
-    public void setTraded(String traded) {
-        this.traded = traded;
-    }
-
     public String getTraded() {
         return traded;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
     }
 
     public String getVolume() {
