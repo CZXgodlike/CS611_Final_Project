@@ -5,6 +5,9 @@
  * @note Part of final
  * Login window for BankATM
  */
+
+package gui;
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginWindow extends JFrame {
-    private JFrame frame = new JFrame("Welcome");
+    private JFrame frame = new JFrame("Welcome to Bank ATM, please login to start.");
     private JPanel panel = new JPanel();
     private JLabel userLabel = new JLabel("Username:");
     private JTextField userText = new JTextField();
@@ -62,6 +65,18 @@ public class LoginWindow extends JFrame {
                     JOptionPane.showMessageDialog(null,"Login Failed");
                     return;
                 }
+            }
+        });
+        
+        registerButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                // check if username exist
+                // add info to customer.csv
+                // display account window
+                JOptionPane.showMessageDialog(null,"registered");
+                frame.dispose();
+                return;
             }
         });
     }
