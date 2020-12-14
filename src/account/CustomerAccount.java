@@ -14,8 +14,8 @@ public class CustomerAccount extends Account {
     // Each customer account has an id which we can use to search for their data.
     protected String ownerName;
 
-    public CustomerAccount(String customerName, String accountName, String password, int id, File data){
-        super (accountName, id, password, data);
+    public CustomerAccount(String customerName, String accountName, int id, int amount){
+        super (accountName, id);
         ownerName = customerName;
     }
 
