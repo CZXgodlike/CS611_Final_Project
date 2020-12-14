@@ -61,12 +61,4 @@ public class BankerAccount extends Account {
             updatePrice(market.get(stockId));
         }
     }
-
-    public void display(){
-        // Connect to the GUI
-    }
-
-    public void transfer(Account acct, double amount, int addOrSub){
-
-    }
 }

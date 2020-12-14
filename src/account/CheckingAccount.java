@@ -1,5 +1,7 @@
 package account;
 
+import utils.*;
+
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -10,17 +12,8 @@ import java.io.IOException;
 
 public class CheckingAccount extends CustomerAccount{
 
-    public CheckingAccount(String userName){
-        super();
-        this.name = userName;
-    }
-
-    public void transaction(){
-
-    }
-
-    public void display(){
-        // Connect to the GUI
+    public CheckingAccount(String accountName, int id, double amount, String currencyType){
+        super(accountName, id, amount, currencyType);
     }
 
     public void open(){
@@ -44,6 +37,15 @@ public class CheckingAccount extends CustomerAccount{
         } catch (CsvException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void transfer(CustomerAccount otherAccount, double amount){
+        this.subBalance(amount);
+        otherAccount.addBalance(amount);
+    }
+    
+    public void updateBalance(){
+        WriteFileUtil.writeField(this.id,1,balance);
     }
     
 }

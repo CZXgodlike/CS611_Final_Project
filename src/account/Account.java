@@ -32,19 +32,10 @@ public abstract class Account{
     public void setId(int id){this.id = id;}
 
     /**
-     * display account info
-     * Connect to GUI
-     */
-
-    public abstract void display();
-    /**
      * Get daliy report of money in/out
      * diplay by GUI
      * @param, date for report
      */
     public abstract void getDailyReport(Date date);
-
-    /** transfer money to another accoun */
-    public abstract void transfer(Account otherAccount, double amount, int addOrSub);
 }
 

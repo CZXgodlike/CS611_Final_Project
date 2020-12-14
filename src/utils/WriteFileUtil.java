@@ -16,5 +16,20 @@ public class WriteFileUtil{
         csvWriter.newLine();
         csvWriter.close();
     }
+    
+    public static void writeField(String filePath, String key, int fIndex, String target){
+        try (BufferedWriter csvWriter = new BufferedWriter(new FileWriter(filePath))){
+            while ((row = csvWriter.readLine()) != null) {
+                String[] data = row.split(",");
+                if(data[keyIndex].equals(key)){
+                    return data(fieldIndex);
+                }
+            }
+            return row;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

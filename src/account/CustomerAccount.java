@@ -1,6 +1,8 @@
 package account;
 
+import utils.*;
 import assets.Stock;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
@@ -9,25 +11,24 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-public class CustomerAccount extends Account {
-    // Each Customer has their own folder or csv that has all their transaction history
-    // Each customer account has an id which we can use to search for their data.
-    protected String ownerName;
+public abstract class CustomerAccount extends Account {
 
-    public CustomerAccount(String customerName, String accountName, int id, int amount){
-        super (accountName, id);
-        ownerName = customerName;
+    protected double balance;
+    protected String currencyType;
+
+    public CustomerAccount(String accountName, int id, double amount, String currencyType){
+        super(accountName, id);
+        this.balance = amount;
+        this.currencyType = currencyType;
     }
 
     public CustomerAccount(){
-        this("","","Password", -1, new File(""));
+        this("",-1,0,"USD");
     }
 
     public void open() {
         // New account, add account info and create path to files and display
-
         File tempFile = getCustomerData();
-
         if(tempFile.exists()){
             validatePassword(password);
         } else{
@@ -78,7 +79,6 @@ public class CustomerAccount extends Account {
         File tempFile = getCustomerData();
 
         if(tempFile.exists()){
-
             if(tempFile.delete()){
                 System.out.println("File successfully deleted");
             }
@@ -87,9 +87,6 @@ public class CustomerAccount extends Account {
             }
 
         }
-    }
-
-    public void transaction(Account acct){
     }
 
     public void transfer(Account acct, double amount, int addOrSub){
@@ -127,18 +124,25 @@ public class CustomerAccount extends Account {
 
     }
 
-    public void checkBalance(){
-        // Connect to the GUI, not sure if this would do anything different than display?
+    public void addBalance(double amount){
+        this.balance += amount;
+        this.updateBalance();
+    }
+    
+    public void subBalance(double amount){
+        this.balance -= amount;
+        this.updateBalance();
     }
 
-    public void display(){
-        // Connect to the GUI
-    }
-
+    public abstract void updateBalance();
+    
     public void getDailyReport(Date date){
         // We could use this function to check how their stocks changed in on a certain date?
     }
 
+    /** transfer money to another accoun */
+    public abstract void transfer(CustomerAccount otherAccount, double amount);
+    
     public File getCustomerData(){
         Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
         Path pathBase = Paths.get("../../");

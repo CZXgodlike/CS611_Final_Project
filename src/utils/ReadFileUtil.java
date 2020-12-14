@@ -52,20 +52,15 @@ public class ReadFileUtil{
     }
     
     // get specific field in given line of csv
-    public static String getField(String filePath, int lineIndex, int fieldIndex){
+    public static String getField(String filePath, String key, int keyIndex, int fieldIndex){
         try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))){
-            String row = "";
-            for (int i=0; i<lineIndex; i++){
-                if ((row = csvReader.readLine()) == null) break;
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",");
+                if(data[keyIndex].equals(key)){
+                    return data(fieldIndex);
+                }
             }
-            
-            if(row != null){
-                csvReader.close();
-                return row.split(",")[fieldIndex];
-            }else{
-                csvReader.close();
-                return row;
-            }
+            return row;
         } catch (IOException e) {
             e.printStackTrace();
         }
