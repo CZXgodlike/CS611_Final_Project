@@ -16,21 +16,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class DepositWindow extends JFrame {
-    private JFrame frame = new JFrame("Deposit Money");
+public class WithdrawWindow extends JFrame {
+    private JFrame frame = new JFrame("Withdraw Money");
     private JPanel panel = new JPanel();
-    private JLabel depositLabel = new JLabel("Amount deposit:");
-    private JTextField depositText = new JTextField();
+    private JLabel withdrawLabel = new JLabel("Amount withdraw:");
+    private JTextField withdrawText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
 
     private CustomerAccount curAccount;
     private AccountWindow prevWin;
     
-    public DepositWindow(CustomerAccount curAccount, AccountWindow prevWin){
+    public WithdrawWindow(CustomerAccount curAccount, AccountWindow prevWin){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
-        this.depositText.setDocument(new NumericTextControl());
+        this.withdrawText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
         frame.setSize(300, 200);
@@ -52,11 +52,11 @@ public class DepositWindow extends JFrame {
     }
     
     private void placeComponents(JPanel panel){
-        // Deposit money
-        depositLabel.setBounds(30, 30, 80, 25);
-        panel.add(depositLabel);
-        depositText.setBounds(105, 30, 165, 25);
-        panel.add(depositText);
+        // Withdraw money
+        withdrawLabel.setBounds(30, 30, 80, 25);
+        panel.add(withdrawLabel);
+        withdrawText.setBounds(105, 30, 165, 25);
+        panel.add(withdrawText);
         // confirm button
         confirmButton.setBounds(25, 100, 80, 25);
         panel.add(confirmButton);
@@ -69,10 +69,10 @@ public class DepositWindow extends JFrame {
         submitButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                String money = depositText.getText();
-                JOptionPane.showMessageDialog(null,"Deposit "+money+" to current account.");
+                String money = withdrawText.getText();
+                JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
                 // add to account object
-                curAccount.addBalance(money);
+                curAccount.subBalance(money);
                 prevWin.setVisible(true);
             }
         });
