@@ -8,7 +8,7 @@
 
 package gui;
 
-import util.*;
+import utils.*;
 
 import java.util.*;
 import javax.swing.*;
@@ -61,8 +61,9 @@ public class LoginWindow extends JFrame {
                 String pass = new String(passText.getPassword());
                 // if user is banker, check banker pass
                 if (username.equals("admin")){
-                    if (ReadFileUtil.getField("data/AccountData/bankerAccount.csv",1,1).equals(pass){
+                    if (ReadFileUtil.getField("data/AccountData/bankerAccount.csv",1,1).equals(pass)){
                         JOptionPane.showMessageDialog(null,"Login as banker");
+                        return;
                         // jumpt to banker GUI
                     }
                 } else if (ReadFileUtil.findMatch("data/customerData.csv",new int[]{0, 1}, new String[]{username,pass})){
@@ -86,7 +87,7 @@ public class LoginWindow extends JFrame {
                 }else{
                     String pass = new String(passText.getPassword());
                     String content = username+","+pass+",";
-                    WriteFileUtil.writeLine("data/customerData.csv", content)
+                    WriteFileUtil.writeLine("data/customerData.csv", content);
                     JOptionPane.showMessageDialog(null,"registered");
                     frame.dispose();
                     // go to user GUI

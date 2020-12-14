@@ -4,6 +4,8 @@
 
 package utils;
 
+import java.io.*;
+
 public class WriteFileUtil{
     
     // Add new line to csv
