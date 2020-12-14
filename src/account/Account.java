@@ -18,7 +18,6 @@ public abstract class Account{
     public Account(){
         this.name = "TempAccount";
         this.id = 0;
-        this.password = "0";
     }
 
     public Account(String name, int id){

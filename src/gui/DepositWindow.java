@@ -23,8 +23,14 @@ public class DepositWindow extends JFrame {
     private JTextField depositText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
+
+    private CustomerAccount curAccount;
+    private AccountWindow prevWin;
     
-    public DepositWindow(Account curAccount, AccountWindow accWin){
+    public DepositWindow(CustomerAccount curAccount, AccountWindow prevWin){
+        this.curAccount = curAccount;
+        this.prevWin = prevWin;
+        this.depositText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
         frame.setSize(300, 200);
@@ -37,8 +43,11 @@ public class DepositWindow extends JFrame {
     }
 
     private void displayInfo(Account curAccount){
-        panel.add(new JLabel("Account ID: "+curAccount.getAccountId()));
-        panel.add(new JLabel("Account Type: "+curAccount.getAccountType()));
+        if (curAccount instanceof CheckingAccount){
+            panel.add(new JLabel("Checking Account "+curAccount.getId()));
+        }else{
+            panel.add(new JLabel("Saving Account "+curAccount.getId()));
+        }
         panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrency()));
     }
     
@@ -63,6 +72,8 @@ public class DepositWindow extends JFrame {
                 String money = depositText.getText();
                 JOptionPane.showMessageDialog(null,"Deposit "+money+" to current account.");
                 // add to account object
+                curAccount.addBalance(money);
+                prevWin.setVisible(true);
             }
         });
         
@@ -71,7 +82,7 @@ public class DepositWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                
+                prevWin.setVisible(true);
             }
         });
     }

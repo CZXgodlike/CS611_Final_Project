@@ -17,11 +17,10 @@ public class BankerAccount extends Account {
     protected ArrayList<Customer> customers; // A list of all customers
     
     /** Constructor */
-    public BankerAccount(String password, File data){
-        super("Banker",000000,password,data);
+    public BankerAccount(){
+        super("Banker",000000);
         customers = new ArrayList<Customer>();
     }
-    
     
     public void getDailyReport(Date date){
         
