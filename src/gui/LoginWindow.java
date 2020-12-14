@@ -8,6 +8,8 @@
 
 package gui;
 
+import util.*;
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class LoginWindow extends JFrame {
-    private JFrame frame = new JFrame("Welcome to Bank ATM, please login to start.");
+    private JFrame frame = new JFrame("Welcome to Bank ATM");
     private JPanel panel = new JPanel();
     private JLabel userLabel = new JLabel("Username:");
     private JTextField userText = new JTextField();
@@ -58,7 +60,7 @@ public class LoginWindow extends JFrame {
                 String username = userText.getText();
                 String pass = new String(passText.getPassword());
                 // seek account info, currently just use default for testing
-                if (username.equals("admin") && pass.equals("123")){
+                if (ReadFileUtil.findMatch("data/customer.csv",0,username) && ReadFileUtil.findMatch("data/customer.csv",0,username)){
                     JOptionPane.showMessageDialog(null,"Login success");
                     return;
                 }else{

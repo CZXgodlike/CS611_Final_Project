@@ -17,5 +17,17 @@ public class ReadFileUtil{
         }
         return false;
     }
+    
+    // find if muiltiple target exist in a given field in file
+    public static boolean fieldMultiMath(String filePath, int[] fIndex, String[] fields){
+        BufferedReader csvReader = new BufferedReader(new FileReader(filePath));
+        while ((row = csvReader.readLine()) != null) {
+            String[] data = row.split(",");
+            if data[fieldIndex].equals(target){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
