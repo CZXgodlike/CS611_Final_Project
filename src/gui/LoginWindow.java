@@ -59,12 +59,18 @@ public class LoginWindow extends JFrame {
                 // check if user name exist in customer accounts
                 String username = userText.getText();
                 String pass = new String(passText.getPassword());
-                // seek account info, currently just use default for testing
-                if (ReadFileUtil.findMatch("data/customer.csv",0,username) && ReadFileUtil.findMatch("data/customer.csv",0,username)){
+                // if user is banker, check banker pass
+                if (username.equals("admin")){
+                    if (ReadFileUtil.getField("data/AccountData/bankerAccount.csv",1,1).equals(pass){
+                        JOptionPane.showMessageDialog(null,"Login as banker");
+                        // jumpt to banker GUI
+                    }
+                } else if (ReadFileUtil.findMatch("data/customerData.csv",new int[]{0, 1}, new String[]{username,pass})){
                     JOptionPane.showMessageDialog(null,"Login success");
+                    // jump to user window
                     return;
                 }else{
-                    JOptionPane.showMessageDialog(null,"Login Failed");
+                    JOptionPane.showMessageDialog(null,"Invalid username or password");
                     return;
                 }
             }
@@ -73,12 +79,19 @@ public class LoginWindow extends JFrame {
         registerButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                // check if username exist
-                // add info to customer.csv
-                // display account window
-                JOptionPane.showMessageDialog(null,"registered");
-                frame.dispose();
-                return;
+                String username = userText.getText();
+                // if account exist, ask for login
+                if (ReadFileUtil.isExist("data/customerData.csv",0,username)){
+                    JOptionPane.showMessageDialog(null,"Username exist, please login");
+                }else{
+                    String pass = new String(passText.getPassword());
+                    String content = username+","+pass+",";
+                    WriteFileUtil.writeLine("data/customerData.csv", content)
+                    JOptionPane.showMessageDialog(null,"registered");
+                    frame.dispose();
+                    // go to user GUI
+                    return;
+                }
             }
         });
     }
