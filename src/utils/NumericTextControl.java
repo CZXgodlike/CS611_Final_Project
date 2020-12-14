@@ -1,4 +1,4 @@
-package gui;
+package utils;
 
 import java.awt.Toolkit;
 import javax.swing.text.AttributeSet;

@@ -7,6 +7,8 @@
  */
 package gui;
 
+import utils.*;
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
