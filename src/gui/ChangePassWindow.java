@@ -69,7 +69,7 @@ public class ChangePassWindow extends JFrame {
                 String pass2 = passText2.getText();
                 // if 2 pass match, change pass
                 if (pass.equals(pass2)){
-//                    customer.setPass(pass);
+                    customer.setPass(pass);
                     frame.dispose();
                     prevWin.setVisible(true);
                 }else{

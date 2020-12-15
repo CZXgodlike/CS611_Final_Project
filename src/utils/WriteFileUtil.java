@@ -32,7 +32,7 @@ public class WriteFileUtil{
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 if(data[keyIndex].equals(key)){
-//                    return data(fieldIndex);
+                    return data(fieldIndex);
                     data[fIndex] = target;
                 }
                 fileBuffer += String.join(", ", data);
@@ -44,20 +44,20 @@ public class WriteFileUtil{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            return row;
+            return row;
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        return null;
+        return null;
     }
 
-    public static void removeLineFromCustomerAccountData(String path, CustomerAccount acct){
+    public static void removeLineFromCustomerAccountData(String path, CustomerAccount acct) {
         try {
             CSVReader reader = new CSVReader(new FileReader(path));
             List<String[]> data = reader.readAll();
             int i;
-            for(i = 0; i < data.size();i++){
-                if(Integer.parseInt(data.get(i)[0]) == (acct.getId())){
+            for (i = 0; i < data.size(); i++) {
+                if (Integer.parseInt(data.get(i)[0]) == (acct.getId())) {
                     data.remove(i);
                 }
             }

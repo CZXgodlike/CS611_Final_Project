@@ -29,17 +29,17 @@ public class OpenSecAccountWindow extends JFrame {
     
     private AccountWindow prevWin;
     
-//    public OpenSecAccountWindow(AssociateSecAccountFrame prevWin){
-//        this.prevWin = prevWin;
-//        this.moneyText.setDocument(new NumericTextControl());
-//        initListener();
-//        frame.setLocationRelativeTo(null);
-//        frame.setSize(400, 170);
-//        frame.add(panel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        placeComponents(panel);
-//        frame.setVisible(true);
-//    }
+    public OpenSecAccountWindow(AssociateSecAccountFrame prevWin){
+        this.prevWin = prevWin;
+        this.moneyText.setDocument(new NumericTextControl());
+        initListener();
+        frame.setLocationRelativeTo(null);
+        frame.setSize(400, 170);
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        placeComponents(panel);
+        frame.setVisible(true);
+    }
 
     private void placeComponents(JPanel panel){
         panel.setLayout(null);
@@ -68,7 +68,7 @@ public class OpenSecAccountWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // generate unique UserID
                 String uniqueID = UUID.randomUUID().toString();
-//                String secAccountType = accSelect.getSelectedItem().toString();
+                String secAccountType = accSelect.getSelectedItem().toString();
                 String money = moneyText.getText();
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to secAccount info
