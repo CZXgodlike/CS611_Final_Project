@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import account.*;
 
 public class DepositWindow extends JFrame {
     private JFrame frame = new JFrame("Deposit Money");
@@ -31,13 +32,13 @@ public class DepositWindow extends JFrame {
         this.curAccount = curAccount;
         this.prevWin = prevWin;
         this.depositText.setDocument(new NumericTextControl());
-        initListener();
+//        initListener();
         frame.setLocationRelativeTo(null);
         frame.setSize(300, 200);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        displayInfo(curAccount, accWin);
+//        displayInfo(curAccount, accWin);
         placeComponents(panel);
         frame.setVisible(true);
     }
@@ -48,7 +49,7 @@ public class DepositWindow extends JFrame {
         }else{
             panel.add(new JLabel("Saving Account "+curAccount.getId()));
         }
-        panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrency()));
+//        panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrency()));
     }
     
     private void placeComponents(JPanel panel){
@@ -65,25 +66,25 @@ public class DepositWindow extends JFrame {
         panel.add(backButton);
     }
     
-    public void initListener(){
-        submitButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String money = depositText.getText();
-                JOptionPane.showMessageDialog(null,"Deposit "+money+" to current account.");
-                // add to account object
-                curAccount.addBalance(money);
-                prevWin.setVisible(true);
-            }
-        });
+//    public void initListener(){
+//        submitButton.addActionListener(new ActionListener(){
+//            @Override
+//            public void actionPerformed(ActionEvent e){
+//                String money = depositText.getText();
+//                JOptionPane.showMessageDialog(null,"Deposit "+money+" to current account.");
+//                // add to account object
+//                curAccount.addBalance(money);
+//                prevWin.setVisible(true);
+//            }
+//        });
         
-        backButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                // return to previous window
-                frame.dispose();
-                prevWin.setVisible(true);
-            }
-        });
-    }
+//        backButton.addActionListener(new ActionListener(){
+//            @Override
+//            public void actionPerformed(ActionEvent e){
+//                // return to previous window
+//                frame.dispose();
+//                prevWin.setVisible(true);
+//            }
+//        });
+//    }
 }

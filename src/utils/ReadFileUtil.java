@@ -5,8 +5,11 @@
 package utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ReadFileUtil{
     
@@ -54,10 +57,11 @@ public class ReadFileUtil{
     // get specific field in given line of csv
     public static String getField(String filePath, String key, int keyIndex, int fieldIndex){
         try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))){
+            String row;
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 if(data[keyIndex].equals(key)){
-                    return data(fieldIndex);
+                    return data[fieldIndex];
                 }
             }
             return row;
@@ -65,5 +69,12 @@ public class ReadFileUtil{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static File getPathToAccountData(String fileName){
+        Path pathAbsolute = Paths.get("../../data/AccountData/"+ fileName +".csv");
+        Path pathBase = Paths.get("../../");
+        Path pathRelative = pathBase.relativize(pathAbsolute);
+        return new File(pathRelative.toUri());
     }
 }

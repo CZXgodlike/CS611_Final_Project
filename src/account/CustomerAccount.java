@@ -26,25 +26,47 @@ public abstract class CustomerAccount extends Account {
         this("",-1,0,"USD");
     }
 
-    public void open() {
-        // New account, add account info and create path to files and display
-        File tempFile = getCustomerData();
-        if(tempFile.exists()){
-            validatePassword(password);
+    public abstract void open();
+
+    protected void open(CustomerAccount acctType){
+        File toEdit = getCustomerData();
+        String startingSymbol;
+        if(acctType instanceof CheckingAccount){
+            startingSymbol = "C";
+        } else if(acctType instanceof SavingAccount){
+            startingSymbol = "S";
         } else{
-            try {
-                if (tempFile.createNewFile()) {
-                    System.out.println("File successfully made");
-                } else {
-                    System.out.println("File was not made");
+            startingSymbol = "A";
+        }
+        try {
+            CSVReader reader = new CSVReader(new FileReader(toEdit));
+            List<String[]> data = reader.readAll();;
+            for(String[] d: data){
+                if(d[0].equals(this.name)){
+                    String accounts = d[2];
+                    if(accounts.length() == 0){
+                        accounts+= startingSymbol + id;
+                    } else{
+                        accounts += d[2] + ";" + startingSymbol + id;
+                    }
+                    d[2] = accounts;
                 }
             }
-            catch (IOException e){
-                e.printStackTrace();
-            }
+            CSVWriter writer = new CSVWriter(new FileWriter(toEdit),CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.NO_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
+            writer.writeAll(data);
+            writer.close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
         }
     }
-
     private boolean validatePassword(String password){
         File tempFile = getCustomerData();
         try (BufferedReader csvReader = new BufferedReader(new FileReader(tempFile.getAbsolutePath()))) {
@@ -74,18 +96,51 @@ public abstract class CustomerAccount extends Account {
         return false;
     }
 
-    public void close(){
+    public abstract void close();
         // Delete the account and all relevant info
-        File tempFile = getCustomerData();
+//        File tempFile = getCustomerData();
+//
+//        if(tempFile.exists()){
+//            if(tempFile.delete()){
+//                System.out.println("File successfully deleted");
+//            }
+//            else{
+//                System.out.println("File does not exist and thus was not deleted");
+//            }
+//
+//        }
 
-        if(tempFile.exists()){
-            if(tempFile.delete()){
-                System.out.println("File successfully deleted");
+    public void close(CustomerAccount acct){
+        String searchSymbol;
+        if(acct instanceof CheckingAccount){
+            searchSymbol = "C";
+        } else if(acct instanceof SavingAccount){
+            searchSymbol = "S";
+        } else{
+            searchSymbol = "A";
+        }
+        File customerData = getCustomerData();
+        try {
+            List<String[]> data = new CSVReader(new FileReader(customerData)).readAll();
+            for(String[] d: data){
+                if(d[0].equalsIgnoreCase(this.name)){
+                    String[] accounts = d[2].split(";");
+                    String newData = "";
+                    for(String account: accounts){
+                        if(!account.startsWith(searchSymbol)){
+                            if(newData.length() == 0){
+                                newData+= account;
+                            } else{
+                                newData+= ";" + account;
+                            }
+                        }
+                    }
+                }
             }
-            else{
-                System.out.println("File does not exist and thus was not deleted");
-            }
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
         }
     }
 
@@ -141,12 +196,44 @@ public abstract class CustomerAccount extends Account {
     }
 
     /** transfer money to another accoun */
-    public abstract void transfer(CustomerAccount otherAccount, double amount);
+    public void transfer(CustomerAccount otherAccount, double amount){
+        if(exists(otherAccount)){
+
+        }
+    }
     
     public File getCustomerData(){
-        Path pathAbsolute = Paths.get("../../data/" + this.name+".csv");
+        Path pathAbsolute = Paths.get("../../data/customerData.csv");
         Path pathBase = Paths.get("../../");
         Path pathRelative = pathBase.relativize(pathAbsolute);
         return new File(pathRelative.toUri());
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    public double getAmount() {
+        return balance;
+    }
+
+    public void deposit(int amount){
+        addBalance((double) amount);
+    }
+
+    public void withdraw(int amount){
+        subBalance((double) amount);
+    }
+
+    public boolean exists(CustomerAccount acc){
+        return true;
+    }
+
+    public abstract void display();
+
+
 }

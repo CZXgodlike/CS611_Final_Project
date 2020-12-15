@@ -15,21 +15,22 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import assets.*;
 
 public class ChangePassWindow extends JFrame {
     private JFrame frame = new JFrame("Reset Password");
     private JPanel panel = new JPanel();
     private JLabel passLabel = new JLabel("New password:");
-    private JPasswordField passText = new JTextField();
+    private JPasswordField passText = new JPasswordField();
     private JLabel passLabel2 = new JLabel("Retype password:");
-    private JPasswordField passText2 = new JTextField();
+    private JPasswordField passText2 = new JPasswordField();
     private JButton submitButton = new JButton("Confirm");
     private JButton backButton = new JButton("Back");
     
     private AssociateAccountFrame prevWin;
     private Customer customer;
     
-    public ChangePassWindowWindow(AssociateAccountFrame prevWin, Customer c){
+    public ChangePassWindow(AssociateAccountFrame prevWin, Customer c){
         this.prevWin = prevWin;
         this.customer = c;
         initListener();
@@ -68,7 +69,7 @@ public class ChangePassWindow extends JFrame {
                 String pass2 = passText2.getText();
                 // if 2 pass match, change pass
                 if (pass.equals(pass2)){
-                    customer.setPass(pass);
+//                    customer.setPass(pass);
                     frame.dispose();
                     prevWin.setVisible(true);
                 }else{

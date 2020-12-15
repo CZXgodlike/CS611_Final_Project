@@ -16,7 +16,7 @@ public class Customer implements User {
         this.customerAccts = customerAcct;
     }
 
-    public List<Account> getCustomerAccts() {
+    public List<Account> getAccounts() {
         return this.customerAccts;
     }
 }

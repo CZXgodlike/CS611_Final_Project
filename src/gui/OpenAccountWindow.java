@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import account.*;
 
 public class OpenAccountWindow extends JFrame {
     private JFrame frame = new JFrame("Open New Account");

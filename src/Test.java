@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Test {
 
     public static void main(String[] args) throws IOException {
+
         StockDataController c = new StockDataController();
         c.getData();
 
@@ -16,9 +17,11 @@ public class Test {
 //        CustomerAccount acct = new CustomerAccount("accountName", "password", 0, null);
 //        acct.open();
 //        acct.close();
-        Customer testCustomer = new Customer("Leo", "1111");
+        Customer testCustomer = new Customer();
         CustomerAccountFactory factory = new CustomerAccountFactory();
-        testCustomer.getAccounts().add(factory.getCustomerAccount(testCustomer.getUserName(),"Checking"));
+        testCustomer.getAccounts().add(factory.getCustomerAccount("Leo","Checking"));
+        testCustomer.getAccounts().add(factory.getCustomerAccount("Leo","Saving"));
+        testCustomer.getAccounts().add(factory.getCustomerAccount("Leo","Securities"));
         for(Account acct: testCustomer.getAccounts()){
             if(acct instanceof CustomerAccount){
                 ((CustomerAccount) acct).open();

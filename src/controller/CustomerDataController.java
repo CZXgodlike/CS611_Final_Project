@@ -29,4 +29,8 @@ public class CustomerDataController extends DataController{
         return stocks;
     }
 
+    @Override
+    public Object getData() throws IOException {
+        return null;
+    }
 }

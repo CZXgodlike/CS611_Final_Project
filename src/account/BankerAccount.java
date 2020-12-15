@@ -31,7 +31,7 @@ public class BankerAccount extends Account {
         List<Account> accounts = customer.getAccounts();
         // display each account that customer has
         for(Account a: accounts){
-            a.display();
+            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
         }
     }
     
@@ -49,7 +49,7 @@ public class BankerAccount extends Account {
         int opt = 0; //GUI_INPUT;
         if(opt == 1){
             // USE BUTTON TO GET NEW STOCK
-            Stock newStock = new Stock();//GUI_INPUT;
+            Stock newStock = new Stock(new ArrayList<>());//GUI_INPUT;
             market.add(newStock);
         }else if(opt == 2){
             // USE BOTTON TO SELECT STOCK TO BE REMOVED

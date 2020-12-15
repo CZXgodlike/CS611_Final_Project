@@ -9,6 +9,7 @@
 package gui;
 
 import utils.*;
+import account.*;
 
 import java.util.*;
 import javax.swing.*;
@@ -16,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-public class DepositWindow extends JFrame {
+public class AccountWindow extends JFrame {
     private JFrame frame = new JFrame("Account Summary");
     private JPanel panel = new JPanel();
     private JButton depButton = new JButton("Deposit");
@@ -31,14 +32,14 @@ public class DepositWindow extends JFrame {
     
     public AccountWindow(CustomerAccount curAccount, AccountWindow prevWin){
         this.curAccount = curAccount;
-        this.prevWin = prevWin;
+//        this.prevWin = prevWin;
         initListener();
         frame.setLocationRelativeTo(null);
         frame.setSize(300, 200);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        displayInfo(curAccount, accWin);
+//        displayInfo(curAccount, accWin);
         placeComponents(panel);
         frame.setVisible(true);
     }
@@ -53,13 +54,13 @@ public class DepositWindow extends JFrame {
         }else{
             panel.add(new JLabel("Saving Account "+curAccount.getId()));
         }
-        panel.add(new JLabel("Current Balance: "+curAccount.getBalance()+" "+curAccount.getCurrency()));
+//        panel.add(new JLabel("Current Balance: "+curAccount.getBalance()+" "+curAccount.getCurrency()));
     }
     
     private void placeComponents(JPanel panel){
         // deposit button
         depButton.setBounds(25, 30, 80, 25);
-        panel.add(confirmButton);
+//        panel.add(confirmButton);
         // withdraw buttom
         wdButton.setBounds(25, 60, 80, 25);
         panel.add(wdButton);
@@ -79,7 +80,7 @@ public class DepositWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 frame.dispose();
-                new DepositWindow(curAccount, this, 1);
+//                new DepositWindow(curAccount, this, 1);
             }
         });
         
@@ -88,7 +89,7 @@ public class DepositWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                new WithdrawWindow(curAccount, this, 2);
+//                new WithdrawWindow(curAccount, this, 2);
             }
         });
         
@@ -97,7 +98,7 @@ public class DepositWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                new TransferWindow(curAccount, this);
+//                new TransferWindow(curAccount, this);
             }
         });
         
@@ -106,7 +107,7 @@ public class DepositWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                new ActivityWindow();
+//                new ActivityWindow();
             }
         });
         
@@ -115,7 +116,7 @@ public class DepositWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                new OpenSecAccountWindow();
+//                new OpenSecAccountWindow();
             }
         });
     }

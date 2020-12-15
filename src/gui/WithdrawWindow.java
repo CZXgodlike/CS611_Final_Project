@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import account.*;
+
 public class WithdrawWindow extends JFrame {
     private JFrame frame = new JFrame("Withdraw Money");
     private JPanel panel = new JPanel();
@@ -37,7 +39,7 @@ public class WithdrawWindow extends JFrame {
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        displayInfo(curAccount, accWin);
+//        displayInfo(curAccount, accWin);
         placeComponents(panel);
         frame.setVisible(true);
     }
@@ -48,7 +50,7 @@ public class WithdrawWindow extends JFrame {
         }else{
             panel.add(new JLabel("Saving Account "+curAccount.getId()));
         }
-        panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrency()));
+        panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrencyType()));
     }
     
     private void placeComponents(JPanel panel){
@@ -66,16 +68,16 @@ public class WithdrawWindow extends JFrame {
     }
     
     public void initListener(){
-        submitButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String money = withdrawText.getText();
-                JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
-                // add to account object
-                curAccount.subBalance(money);
-                prevWin.setVisible(true);
-            }
-        });
+//        submitButton.addActionListener(new ActionListener(){
+//            @Override
+//            public void actionPerformed(ActionEvent e){
+//                String money = withdrawText.getText();
+//                JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
+//                // add to account object
+//                curAccount.subBalance(Double.parseDouble());
+//                prevWin.setVisible(true);
+//            }
+//        });
         
         backButton.addActionListener(new ActionListener(){
             @Override

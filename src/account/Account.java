@@ -37,5 +37,6 @@ public abstract class Account{
      * @param, date for report
      */
     public abstract void getDailyReport(Date date);
+
 }
 
