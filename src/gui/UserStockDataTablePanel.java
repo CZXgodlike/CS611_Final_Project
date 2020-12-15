@@ -1,8 +1,8 @@
 package gui;
 
 import account.SecuritiesAccount;
-import assets.Stock;
-import controller.StockDataController;
+import assets.UserStockData;
+import controller.UserStockDataController;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,21 +14,25 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.List;
 
-public class StockDisplayTablePanel extends JPanel {
+public class UserStockDataTablePanel extends JPanel {
 
     private JTable table;
-    private StockDisplayModel tableModel;
-    private StockDataController controller;
+    private UserStockDataModel model;
+    private SecuritiesAccount account;
     private JPopupMenu menu;
+    private UserStockDataController controller;
+    private SellStockListener listener;
 
-    public StockDisplayTablePanel(SecuritiesAccount account){
-        tableModel = new StockDisplayModel();
-        table = new JTable(tableModel);
-        controller = new StockDataController();
+    public UserStockDataTablePanel(SecuritiesAccount account){
+
+        this.account = account;
+        model = new UserStockDataModel();
+        table = new JTable(model);
         menu = new JPopupMenu();
+        controller = new UserStockDataController(Integer.toString(account.getId()));
 
-        JMenuItem buy = new JMenuItem("buy");
-        menu.add(buy);
+        JMenuItem sell = new JMenuItem("sell");
+        menu.add(sell);
 
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -45,11 +49,11 @@ public class StockDisplayTablePanel extends JPanel {
             }
         });
 
-        buy.addActionListener(new ActionListener() {
+        sell.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                new BuyStockIntegerTextFrame((String) tableModel.getValueAt(row, 0), account);
+
             }
         });
 
@@ -61,13 +65,16 @@ public class StockDisplayTablePanel extends JPanel {
         add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
-    public void setData(List<Stock> db){
-        tableModel.setData(db);
+    public void setData(List<UserStockData> data){
+        model.setData(data);
     }
 
     public void refresh() throws IOException {
-        setData(controller.getData());
-        tableModel.fireTableDataChanged();
+        model.setData(controller.getData());
+        model.fireTableDataChanged();
     }
 
+    public void setListener(SellStockListener listener) {
+        this.listener = listener;
+    }
 }

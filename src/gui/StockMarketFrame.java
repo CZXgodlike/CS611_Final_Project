@@ -1,5 +1,6 @@
 package gui;
 
+import account.SecuritiesAccount;
 import controller.StockDataController;
 
 import javax.swing.*;
@@ -9,14 +10,14 @@ import java.io.IOException;
 public class StockMarketFrame extends JFrame {
     private StockDisplayTablePanel tablePanel;
     private StockDataController controller;
-    private StockMarketToolBar toolBar;
+    private RefreshToolBar toolBar;
 
-    public StockMarketFrame() throws IOException {
+    public StockMarketFrame(SecuritiesAccount account) throws IOException {
         super("Stock Market");
 
-        tablePanel = new StockDisplayTablePanel();
+        tablePanel = new StockDisplayTablePanel(account);
         controller = new StockDataController();
-        toolBar = new StockMarketToolBar();
+        toolBar = new RefreshToolBar();
 
         tablePanel.setData(controller.getData());
 

@@ -49,7 +49,6 @@ public class StockDataManagementMainFrame extends JFrame {
         });
 
         setSize(750, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
         add(tablePanel, BorderLayout.CENTER);

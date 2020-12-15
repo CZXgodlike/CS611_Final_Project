@@ -91,4 +91,22 @@ public class StockDataController extends DataController{
         writer.close();
     }
 
+    public String getCurrentPrice(String id) throws IOException {
+        for(Stock stock: readData()){
+            if(id.equals(stock.getSymbol())){
+                return stock.getLast();
+            }
+        }
+        return null;
+    }
+
+    public Stock getStock(String id) throws IOException {
+        for(Stock stock: readData()){
+            if(id.equals(stock.getSymbol())){
+                return stock;
+            }
+        }
+        return null;
+    }
+
 }
