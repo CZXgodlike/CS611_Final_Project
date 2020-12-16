@@ -75,14 +75,19 @@ public class WithdrawWindow extends JFrame {
         confirmButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                String money = withdrawText.getText();
-                JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
-                // add to account object
-                curAccount.withdraw(Double.parseDouble(money));
-                frame.dispose();
-                window.refresh();
+                double money = Double.parseDouble(withdrawText.getText());
+                // check if enough money
+                if(curAccount.getBalance()<money){
+                    JOptionPane.showMessageDialog(null,"Don't have enough money in account.");
+                    frame.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
+                    // add to account object
+                    curAccount.withdraw(money);
+                    frame.dispose();
+                    window.refresh();
+                }
                 prevWin.setVisible(true);
-
             }
         });
         
