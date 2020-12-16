@@ -25,7 +25,6 @@ public class WithdrawWindow extends JFrame {
     private JTextField withdrawText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
-    private JButton submitButton = new JButton("Submit");
 
     private CustomerAccount curAccount;
     private AccountWindow prevWin;
@@ -48,8 +47,10 @@ public class WithdrawWindow extends JFrame {
     private void displayInfo(CustomerAccount curAccount){
         if (curAccount instanceof CheckingAccount){
             panel.add(new JLabel("Checking Account "+curAccount.getId()));
-        }else{
+        }else if (curAccount instanceof SavingAccount){
             panel.add(new JLabel("Saving Account "+curAccount.getId()));
+        }else{
+            panel.add(new JLabel("Securities Account "+curAccount.getId()));
         }
         panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrencyType()));
     }
@@ -66,8 +67,6 @@ public class WithdrawWindow extends JFrame {
         // back buttom
         backButton.setBounds(190, 100, 80, 25);
         panel.add(backButton);
-
-        // need to add submit button
     }
     
     public void initListener(){

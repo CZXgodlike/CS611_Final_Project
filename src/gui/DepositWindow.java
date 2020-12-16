@@ -24,7 +24,6 @@ public class DepositWindow extends JFrame {
     private JTextField depositText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
-    private JButton submitButton = new JButton("Submit");
 
     private CustomerAccount curAccount;
     private AccountWindow prevWin;
@@ -47,8 +46,10 @@ public class DepositWindow extends JFrame {
     private void displayInfo(CustomerAccount curAccount){
         if (curAccount instanceof CheckingAccount){
             panel.add(new JLabel("Checking Account "+curAccount.getId()));
-        }else{
+        }else if (curAccount instanceof SavingAccount){
             panel.add(new JLabel("Saving Account "+curAccount.getId()));
+        }else{
+            panel.add(new JLabel("Securities Account "+curAccount.getId()));
         }
         panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrencyType()));
     }
@@ -65,8 +66,6 @@ public class DepositWindow extends JFrame {
         // back buttom
         backButton.setBounds(190, 100, 80, 25);
         panel.add(backButton);
-
-        // Need at add submit button
     }
     
     public void initListener(){
@@ -76,7 +75,8 @@ public class DepositWindow extends JFrame {
                 String money = depositText.getText();
                 JOptionPane.showMessageDialog(null,"Deposit "+money+" to current account.");
                 // add to account object
-                curAccount.addBalance(Double.parseDouble(money));
+                curAccount.deposit(Double.parseDouble(money));
+                frame.dispose();
                 prevWin.setVisible(true);
             }
         });

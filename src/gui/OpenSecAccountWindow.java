@@ -28,18 +28,20 @@ public class OpenSecAccountWindow extends JFrame {
     private JButton backButton = new JButton("back");
     
     private AccountWindow prevWin;
+    private String userName;
     
-//    public OpenSecAccountWindow(AssociateSecAccountFrame prevWin){
-//        this.prevWin = prevWin;
-//        this.moneyText.setDocument(new NumericTextControl());
-//        initListener();
-//        frame.setLocationRelativeTo(null);
-//        frame.setSize(400, 170);
-//        frame.add(panel);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        placeComponents(panel);
-//        frame.setVisible(true);
-//    }
+    public OpenSecAccountWindow(AccountWindow prevWin, String userName){
+        this.prevWin = prevWin;
+        this.userName = userName;
+        this.moneyText.setDocument(new NumericTextControl());
+        initListener();
+        frame.setLocationRelativeTo(null);
+        frame.setSize(400, 170);
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        placeComponents(panel);
+        frame.setVisible(true);
+    }
 
     private void placeComponents(JPanel panel){
         panel.setLayout(null);
@@ -66,14 +68,11 @@ public class OpenSecAccountWindow extends JFrame {
         submitButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                // generate unique UserID
-                String uniqueID = UUID.randomUUID().toString();
-//                String secAccountType = accSelect.getSelectedItem().toString();
-                String money = moneyText.getText();
+                Double money = Double.parseDouble(moneyText.getText());
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to secAccount info
                 JOptionPane.showMessageDialog(null,uniqueID+" "+curType+" "+money);
-                new SecuritiesAccount();
+                new SecuritiesAccount(userName, money, curType);
                 frame.dispose();
                 prevWin.setVisible(true);
             }
