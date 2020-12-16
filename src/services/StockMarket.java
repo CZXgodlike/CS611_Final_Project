@@ -2,7 +2,7 @@ package services;
 
 import account.CustomerAccount;
 import account.SecuritiesAccount;
-import assets.Stock;
+import assets.*;
 import controller.StockDataController;
 
 public class StockMarket {

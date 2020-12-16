@@ -37,7 +37,7 @@ public class CheckingAccount extends CustomerAccount{
                 List<String[]> data = reader.readAll();
                 boolean customerExists = false;
                 for(String[] d: data){
-                    if(d[0].equalsIgnoreCase(this.accountName)){
+                    if(d[0].equalsIgnoreCase(this.name)){
                         customerExists = true;
                     }
                 }

@@ -1,7 +1,7 @@
 package gui;
 
 import account.SecuritiesAccount;
-import assets.Stock;
+import assets.*;
 
 import java.util.EventListener;
 

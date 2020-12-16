@@ -1,7 +1,7 @@
 package gui;
 
 import account.SecuritiesAccount;
-import controller.StockDataController;
+import controller.*;
 
 import javax.swing.*;
 import java.awt.*;

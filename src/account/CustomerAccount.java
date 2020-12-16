@@ -16,11 +16,11 @@ public abstract class CustomerAccount extends Account {
 
     protected double balance;
     protected String currencyType;
-    protected String accountName;
+    protected String name;
 
     public CustomerAccount(String accountName, double amount, String currencyType){
         super();
-        this.accountName = accountName;
+        this.name = accountName;
         this.balance = amount;
         this.currencyType = currencyType;
     }
@@ -28,8 +28,7 @@ public abstract class CustomerAccount extends Account {
     public CustomerAccount(){
         this("",0,"USD");
     }
-
-    public String getName(){ return this.accountName;}
+    public String getName(){ return this.name;}
         
     public abstract void open();
 
@@ -40,7 +39,7 @@ public abstract class CustomerAccount extends Account {
             CSVReader reader = new CSVReader(new FileReader(toEdit));
             List<String[]> data = reader.readAll();;
             for(String[] d: data){
-                if(d[0].equals(this.accountName)){
+                if(d[0].equals(this.name)){
                     String accounts = d[2];
                     if(accounts.length() == 0){
                         accounts += startingSymbol + id;
@@ -99,7 +98,7 @@ public abstract class CustomerAccount extends Account {
         try {
             List<String[]> data = new CSVReader(new FileReader(customerData)).readAll();
             for(String[] d: data){
-                if(d[0].equalsIgnoreCase(this.accountName)){
+                if(d[0].equalsIgnoreCase(this.name)){
                     String[] accounts = d[2].split(";");
                     String newData = "";
                     for(String account: accounts){
@@ -147,7 +146,7 @@ public abstract class CustomerAccount extends Account {
             List<String[]> info = reader.readAll();
             if(info.size() >= 1){
                 String pathToAcctInfo = info.get(0)[2];
-                String currPathToAcctInfo = pathToAcctInfo + "\\" + this.accountName + ".csv";
+                String currPathToAcctInfo = pathToAcctInfo + "\\" + this.name + ".csv";
                 reader = new CSVReader(new FileReader(currPathToAcctInfo));
                 info = reader.readAll();
                 double currentAcctBalance = Double.parseDouble(info.get(0)[1]);
@@ -155,7 +154,7 @@ public abstract class CustomerAccount extends Account {
                 info.get(0)[1] = currentAcctBalance + "";
                 CSVWriter writer = new CSVWriter(new FileWriter(currPathToAcctInfo));
                 writer.writeAll(info);
-                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.accountName + ".csv";
+                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.name + ".csv";
                 reader = new CSVReader(new FileReader(targetPathToAcctInfo));
                 info = reader.readAll();
                 currentAcctBalance = Double.parseDouble(info.get(0)[1]);

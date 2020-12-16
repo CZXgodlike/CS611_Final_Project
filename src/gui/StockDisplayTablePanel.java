@@ -1,8 +1,8 @@
 package gui;
 
 import account.SecuritiesAccount;
-import assets.Stock;
-import controller.StockDataController;
+import assets.*;
+import controller.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
