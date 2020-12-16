@@ -71,7 +71,7 @@ public class OpenSecAccountWindow extends JFrame {
                 Double money = Double.parseDouble(moneyText.getText());
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to secAccount info
-                JOptionPane.showMessageDialog(null,uniqueID+" "+curType+" "+money);
+                JOptionPane.showMessageDialog(null,userName+" "+curType+" "+money);
                 new SecuritiesAccount(userName, money, curType);
                 frame.dispose();
                 prevWin.setVisible(true);
