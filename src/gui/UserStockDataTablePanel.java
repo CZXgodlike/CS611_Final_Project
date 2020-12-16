@@ -58,7 +58,7 @@ public class UserStockDataTablePanel extends JPanel {
         });
 
         Border innerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-        Border outerBorder = BorderFactory.createEtchedBorder();
+        Border outerBorder = BorderFactory.createTitledBorder("Owned stocks");
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
         setLayout(new BorderLayout());
 

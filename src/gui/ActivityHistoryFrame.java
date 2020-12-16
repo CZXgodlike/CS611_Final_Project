@@ -13,7 +13,7 @@ public class ActivityHistoryFrame extends JFrame {
     public ActivityHistoryFrame(String id) throws IOException {
         super("Activity history");
 
-        String path = "data/activities/" + id + ".csv";
+        String path = "data/UserActivityData/" + id + ".csv";
         System.out.println(path);
         tablePanel = new ActivityHistoryTablePanel();
         controller = new ActivityHistoryController(path);

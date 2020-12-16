@@ -16,7 +16,8 @@ public class SellStockIntegerTextFrame extends JFrame {
         panel.setListener(new SellStockListener() {
             @Override
             public void sellStock(String id, int number, SecuritiesAccount account) {
-                if(true){
+                //TODO:
+                if(account.sell(id, number)){
                     JOptionPane.showMessageDialog(new JFrame(), "Sold successfully!");
                 } else {
                     JOptionPane.showMessageDialog(new JFrame(), "Failed to buy!", "Oops!", JOptionPane.ERROR_MESSAGE);

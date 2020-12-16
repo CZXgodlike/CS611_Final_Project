@@ -5,5 +5,5 @@ import java.util.EventListener;
 
 public interface RefreshListener extends EventListener {
 
-    void refreshEventOccured() throws IOException;
+    void refreshEventOccurred() throws IOException;
 }

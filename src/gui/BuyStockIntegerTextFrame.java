@@ -18,7 +18,7 @@ public class BuyStockIntegerTextFrame extends JFrame {
             public void buyStock(String id, int number, SecuritiesAccount account) {
                 //TODO: account.sell(id, number);
 
-                if(true){
+                if(account.buy(id, number)){
                     JOptionPane.showMessageDialog(new JFrame(), "Bought successfully!");
                 } else {
                     JOptionPane.showMessageDialog(new JFrame(), "Failed to buy!", "Oops!", JOptionPane.ERROR_MESSAGE);

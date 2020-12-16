@@ -22,9 +22,6 @@ public class CustomerAccountInformationController extends DataController{
         }
     }
 
-    public String getAccountID(int row) throws IOException {
-        return readData().get(row).getId();
-    }
 
     @Override
     public List<CustomerAccountInformation> getData() throws IOException {
