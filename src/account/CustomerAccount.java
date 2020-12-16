@@ -16,11 +16,11 @@ public abstract class CustomerAccount extends Account {
 
     protected double balance;
     protected String currencyType;
-    protected String accountName;
+    protected String name;
 
     public CustomerAccount(String accountName, double amount, String currencyType){
         super();
-        this.accountName = accountName;
+        this.name = accountName;
         this.balance = amount;
         this.currencyType = currencyType;
     }
@@ -29,7 +29,7 @@ public abstract class CustomerAccount extends Account {
         this("",0,"USD");
     }
 
-    public String getName(){ return this.accountName;)
+    public String getName(){ return this.name;}
         
     public abstract void open();
 
