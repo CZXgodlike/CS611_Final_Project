@@ -15,8 +15,8 @@ import java.util.List;
 
 public class SavingAccount extends CustomerAccount {
 
-    public SavingAccount(String accountName, int id, double amount, String currencyType){
-        super(accountName, id, amount, currencyType);
+    public SavingAccount(String accountName, double amount, String currencyType){
+        super(accountName, amount, currencyType);
     }
 
     public SavingAccount(String accountName){
@@ -25,14 +25,6 @@ public class SavingAccount extends CustomerAccount {
 
     public SavingAccount(){
         this("");
-    }
-    
-    public void transaction(){
-
-    }
-
-    public void display(){
-        // Connect to the GUI
     }
 
     @Override
@@ -80,7 +72,6 @@ public class SavingAccount extends CustomerAccount {
         super.close(this);
         File savingAccountFile = ReadFileUtil.getPathToAccountData("savingAccounts");
         if(savingAccountFile.exists()){
-
             WriteFileUtil.removeLineFromCustomerAccountData(savingAccountFile.getAbsolutePath(), this);
         }
     }

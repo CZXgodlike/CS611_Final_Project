@@ -16,15 +16,11 @@ public abstract class CustomerAccount extends Account {
 
     protected double balance;
     protected String currencyType;
-
-    public CustomerAccount(String accountName, int id, double amount, String currencyType){
-        super(accountName, id);
-        this.balance = amount;
-        this.currencyType = currencyType;
-    }
+    protected String accountName;
 
     public CustomerAccount(String accountName, double amount, String currencyType){
-        super(accountName, (int) (Math.random()*299));
+        super();
+        this.accountName = accountName;
         this.balance = amount;
         this.currencyType = currencyType;
     }
@@ -33,6 +29,8 @@ public abstract class CustomerAccount extends Account {
         this("",0,"USD");
     }
 
+    public String getName(){ return this.accountName;)
+        
     public abstract void open();
 
     protected void open(CustomerAccount acctType){
@@ -197,10 +195,6 @@ public abstract class CustomerAccount extends Account {
 
     public abstract void updateBalance(double valueToAdd) throws IOException, CsvException;
     
-    public void getDailyReport(Date date){
-        // We could use this function to check how their stocks changed in on a certain date?
-    }
-
     /** transfer money to another account */
     public void transfer(CustomerAccount otherAccount, double amount){
         if(exists(otherAccount)) {
@@ -216,7 +210,6 @@ public abstract class CustomerAccount extends Account {
 
                     // Add log to transaction history
                     addToTransactionHistory("transfer",amount,this);
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -299,8 +292,6 @@ public abstract class CustomerAccount extends Account {
         return exists;
 
     }
-
-    public abstract void display();
 
     public void addToTransactionHistory(String transactionType, double amount, CustomerAccount otherAccount){
         String contentToAdd = transactionType + "," + LocalDateUtil.getDate() + "," + amount + "," + this.currencyType + ",approved," + otherAccount.getId();

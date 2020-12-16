@@ -15,12 +15,12 @@ import java.util.List;
 
 public class CheckingAccount extends CustomerAccount{
 
-    public CheckingAccount(String accountName, int id, double amount, String currencyType){
-        super(accountName, id, amount, currencyType);
+    public CheckingAccount(String accountName, double amount, String currencyType){
+        super(String accountName, amount, currencyType);
     }
 
     public CheckingAccount(String accountName){
-        super(accountName, 0.0,"USD");
+        super(0.0,"USD");
     }
 
     public CheckingAccount(){
