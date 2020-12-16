@@ -2,7 +2,7 @@ import account.*;
 import assets.Customer;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-import controller.StockDataController;
+import controller.*;
 import utils.ReadFileUtil;
 
 import java.io.File;
@@ -47,7 +47,7 @@ public class Test {
 //            }
 //        }
 
-        new
+
         File customerData = ReadFileUtil.getPathToCustomerData();
         CSVReader reader = new CSVReader(new FileReader(customerData));
         try {
@@ -62,21 +62,21 @@ public class Test {
                             int testAcctID = Integer.parseInt(acct);
                             File checkingAcctData = ReadFileUtil.getPathToAccountData("checkingAccounts");
                             String[] readData = ReadFileUtil.lookUpIDInFile(checkingAcctData,""+testAcctID);
-                            accountsForLeo.add(new CheckingAccount("Leo", Integer.parseInt(readData[0]),Double.parseDouble(readData[1]),readData[2]));
+                            accountsForLeo.add(new CheckingAccount("Leo", Double.parseDouble(readData[1]),readData[2]));
                         }
                         else if(acct.startsWith("S")){
                             acct = acct.substring(1);
                             int testAcctID = Integer.parseInt(acct);
                             File checkingAcctData = ReadFileUtil.getPathToAccountData("savingAccounts");
                             String[] readData = ReadFileUtil.lookUpIDInFile(checkingAcctData,""+testAcctID);
-                            accountsForLeo.add(new SavingAccount("Leo", Integer.parseInt(readData[0]),Double.parseDouble(readData[1]),readData[2]));
+                            accountsForLeo.add(new SavingAccount("Leo",Double.parseDouble(readData[1]),readData[2]));
                         }
                         else if(acct.startsWith("A")){
                             acct = acct.substring(1);
                             int testAcctID = Integer.parseInt(acct);
                             File checkingAcctData = ReadFileUtil.getPathToAccountData("securityAccounts");
                             String[] readData = ReadFileUtil.lookUpIDInFile(checkingAcctData,""+testAcctID);
-                            accountsForLeo.add(new SecuritiesAccount("Leo", Integer.parseInt(readData[0]),Double.parseDouble(readData[1]),readData[2]));
+                            accountsForLeo.add(new SecuritiesAccount("Leo",Double.parseDouble(readData[1]),readData[2]));
                         }
                     }
                 }

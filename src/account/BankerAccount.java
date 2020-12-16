@@ -7,7 +7,7 @@ package account;
 * @note Part of final
 */
 import assets.*;
-import services.StockMarket;
+import services.*;
 
 import java.io.File;
 import java.util.*;
@@ -31,7 +31,7 @@ public class BankerAccount extends Account {
         List<Account> accounts = customer.getAccounts();
         // display each account that customer has
         for(Account a: accounts){
-            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
+//            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
         }
     }
     

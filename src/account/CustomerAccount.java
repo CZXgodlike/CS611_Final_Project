@@ -2,7 +2,7 @@ package account;
 
 import assets.Customer;
 import utils.*;
-import assets.Stock;
+import assets.*;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -28,7 +28,6 @@ public abstract class CustomerAccount extends Account {
     public CustomerAccount(){
         this("",0,"USD");
     }
-
     public String getName(){ return this.name;}
         
     public abstract void open();
@@ -140,7 +139,7 @@ public abstract class CustomerAccount extends Account {
         return "";
     }
 
-    public void transfer(Account acct, double amount, int addOrSub){
+    public void transfer(CustomerAccount acct, double amount, int addOrSub){
         File customerData = this.getCustomerData();
         try {
             CSVReader reader = new CSVReader(new FileReader(customerData));
@@ -273,13 +272,13 @@ public abstract class CustomerAccount extends Account {
         return exists(fileName, acc.getId());
     }
 
-    public boolean exists(String fileName, int accID){
+    public boolean exists(String fileName, String accID){
         boolean exists = false;
         File checking = ReadFileUtil.getPathToAccountData(fileName);
         try {
             List<String[]> checkingData = new CSVReader(new FileReader(checking)).readAll();
             for(String[] data: checkingData){
-                if(Integer.parseInt(data[0]) == accID){
+                if(data[0].equalsIgnoreCase(accID)){
                     exists = true;
                 }
             }

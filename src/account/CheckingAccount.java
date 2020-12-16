@@ -20,7 +20,7 @@ public class CheckingAccount extends CustomerAccount{
     }
 
     public CheckingAccount(String accountName){
-        super(0.0,"USD");
+        super(accountName,0.0,"USD");
     }
 
     public CheckingAccount(){
@@ -74,16 +74,11 @@ public class CheckingAccount extends CustomerAccount{
         File currAccountFile = ReadFileUtil.getPathToAccountData("checkingAccounts");
         List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
         for(String[] d: data){
-            if(d[0].equals(this.id)){
+            if(d[0].equalsIgnoreCase(this.id)){
                 d[1] = "" + (balance);
             }
         }
         WriteFileUtil.writeFile(currAccountFile, data);
-    }
-
-    @Override
-    public void display() {
-        // display info in GUI
     }
 
     public String getBalance() {
