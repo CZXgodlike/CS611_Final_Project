@@ -18,7 +18,7 @@ public class BankerAccount extends Account {
     
     /** Constructor */
     public BankerAccount(){
-        super("Banker",000000);
+        super();
         customers = new ArrayList<Customer>();
     }
     
