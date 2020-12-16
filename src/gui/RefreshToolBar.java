@@ -1,9 +1,6 @@
 package gui;
 
-import org.apache.commons.lang3.ArchUtils;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -27,7 +24,7 @@ public class RefreshToolBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    refreshListener.refreshEventOccured();
+                    refreshListener.refreshEventOccurred();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }

@@ -17,8 +17,8 @@ import java.util.List;
 
 public class SecuritiesAccount extends CustomerAccount {
 
-    public SecuritiesAccount(String accountName, int id, double amount, String currencyType){
-        super(accountName, id, amount, currencyType);
+    public SecuritiesAccount(String accountName, double amount, String currencyType){
+        super(accountName, amount, currencyType);
     }
 
     public SecuritiesAccount(String accountName){

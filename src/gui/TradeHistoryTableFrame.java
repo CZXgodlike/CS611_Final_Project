@@ -1,5 +1,6 @@
 package gui;
 
+import account.SecuritiesAccount;
 import controller.TradeHistoryController;
 
 import javax.swing.*;
@@ -11,10 +12,13 @@ public class TradeHistoryTableFrame extends JFrame {
     private TradeHistoryController controller;
     private TradeHistoryTablePanel tablePanel;
     private JLabel id;
+    private SecuritiesAccount account;
 
-    public TradeHistoryTableFrame(String accountID) throws IOException {
+    public TradeHistoryTableFrame(SecuritiesAccount account) throws IOException {
         super("Trading history");
 
+        this.account = account;
+        String accountID = String.valueOf(account.getId());
         controller = new TradeHistoryController(accountID);
         tablePanel = new TradeHistoryTablePanel();
         id = new JLabel("account ID: " + accountID, SwingConstants.CENTER);

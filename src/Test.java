@@ -15,8 +15,7 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
 
-        StockDataController c = new StockDataController();
-        c.getData();
+        //
 
         /** Testing for the ability to create and delete an account's CSV file **/
 //        CustomerAccount acct = new CustomerAccount("accountName", "password", 0, null);
@@ -47,6 +46,8 @@ public class Test {
 //                ((CustomerAccount) acct).close();
 //            }
 //        }
+
+        new
         File customerData = ReadFileUtil.getPathToCustomerData();
         CSVReader reader = new CSVReader(new FileReader(customerData));
         try {

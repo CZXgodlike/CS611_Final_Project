@@ -29,7 +29,7 @@ public class StockMarketFrame extends JFrame {
 
         toolBar.setRefreshListener(new RefreshListener() {
             @Override
-            public void refreshEventOccured() throws IOException {
+            public void refreshEventOccurred() throws IOException {
                 tablePanel.refresh();
             }
         });
