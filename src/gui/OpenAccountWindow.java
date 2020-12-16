@@ -74,18 +74,19 @@ public class OpenAccountWindow extends JFrame {
         submitButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                // generate unique UserID
-                String uniqueID = UUID.randomUUID().toString();
                 String accountType = accSelect.getSelectedItem().toString();
                 String money = moneyText.getText();
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to account info
                 JOptionPane.showMessageDialog(null,uniqueID+" "+curType+" "+money);
                 if (accountType.equals("Saving")){
-                    new SavingAccount();
+                    SavingAccount acc = new SavingAccount(this.accountName,money,curType);
+                    acc.open();
                 }else{
-                    new CheckingAccount();
+                    CheckingAccount acc = new CheckingAccount(this.accountName,money,curType);
+                    acc.open();
                 }
+                // Back to customer window
                 frame.dispose();
                 prevWin.setVisible(true);
             }
