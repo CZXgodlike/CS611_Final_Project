@@ -18,10 +18,10 @@ import java.io.IOException;
 
 import account.*;
 
-public class WithdrawWindow extends JFrame {
-    private JFrame frame = new JFrame("Withdraw Money");
+public class LoanWindow extends JFrame {
+    private JFrame frame = new JFrame("Rent Money");
     private JPanel panel = new JPanel();
-    private JLabel withdrawLabel = new JLabel("Amount withdraw:");
+    private JLabel withdrawLabel = new JLabel("Amount rent:");
     private JTextField withdrawText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
@@ -30,7 +30,7 @@ public class WithdrawWindow extends JFrame {
     private JFrame prevWin;
     private AccountWindow window;
     
-    public WithdrawWindow(CustomerAccount curAccount, JFrame prevWin, AccountWindow window){
+    public LoanWindow(CustomerAccount curAccount, JFrame prevWin, AccountWindow window){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
         this.window = window;
@@ -47,13 +47,7 @@ public class WithdrawWindow extends JFrame {
     }
 
     private void displayInfo(CustomerAccount curAccount){
-        if (curAccount instanceof CheckingAccount){
-            panel.add(new JLabel("Checking Account "+curAccount.getId()));
-        }else if (curAccount instanceof SavingAccount){
-            panel.add(new JLabel("Saving Account "+curAccount.getId()));
-        }else{
-            panel.add(new JLabel("Securities Account "+curAccount.getId()));
-        }
+        panel.add(new JLabel("Checking Account "+curAccount.getId()));
         panel.add(new JLabel("Current Balance: "+curAccount.getAmount()+" "+curAccount.getCurrencyType()));
     }
     
@@ -76,17 +70,11 @@ public class WithdrawWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 double money = Double.parseDouble(withdrawText.getText());
-                // check if enough money
-                if(Double.parseDouble(curAccount.getBalance())<money){
-                    JOptionPane.showMessageDialog(null,"Don't have enough money in account.");
-                    frame.dispose();
-                }else{
-                    JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
-                    // add to account object
-                    curAccount.withdraw(money);
-                    frame.dispose();
-                    window.refresh();
-                }
+                JOptionPane.showMessageDialog(null,"Interest: "+0.01*money+" "+curAccount.getCurrencyType()+"\n Withdraw "+money+" from current account.");
+                // add to account object
+                curAccount.loan(money*1.01);
+                frame.dispose();
+                window.refresh();
                 prevWin.setVisible(true);
             }
         });

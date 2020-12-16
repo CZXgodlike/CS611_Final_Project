@@ -4,6 +4,9 @@
 
 package utils;
 
+import account.CheckingAccount;
+import account.CustomerAccount;
+import account.SavingAccount;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -112,6 +115,24 @@ public class ReadFileUtil{
             }
         }
         return null;
+    }
+
+    public static boolean checkIfEnoughBalance(CustomerAccount acct, double amount) throws IOException, CsvException {
+        File readFrom;
+        if(acct instanceof CheckingAccount){
+            readFrom = ReadFileUtil.getPathToAccountData("checkingAccounts");
+        } else if(acct instanceof SavingAccount){
+            readFrom = ReadFileUtil.getPathToAccountData("savingAccounts");
+        } else{
+            readFrom = ReadFileUtil.getPathToAccountData("securityAccounts");
+        }
+        String[] acctInfo = lookUpIDInFile(readFrom, acct.getId());
+        double acctBalance = Double.parseDouble(acctInfo[1]);
+        if(acctBalance < amount){
+            return false;
+        } else{
+            return true;
+        }
     }
 
 }

@@ -100,4 +100,16 @@ public class CheckingAccount extends CustomerAccount{
         }
         return "";
     }
+
+    @Override
+    public void loan(double amt) {
+        try {
+            updateBalance(-amt);
+            addToTransactionHistory("loan",amt,this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
+    }
 }

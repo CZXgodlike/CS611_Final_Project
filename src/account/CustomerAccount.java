@@ -140,6 +140,7 @@ public abstract class CustomerAccount extends Account {
         return "";
     }
 
+    // Bad method do not use, use the other overloaded transfer
     public void transfer(Account acct, double amount, int addOrSub){
         File customerData = this.getCustomerData();
         try {
@@ -176,7 +177,6 @@ public abstract class CustomerAccount extends Account {
     }
 
     public void addBalance(double amount){
-//        this.balance += amount;
         try {
             this.updateBalance(amount);
         } catch (IOException | CsvException e){
@@ -185,7 +185,6 @@ public abstract class CustomerAccount extends Account {
     }
     
     public void subBalance(double amount){
-//        this.balance -= amount;
         try {
             this.updateBalance(-amount);
         } catch (IOException | CsvException e){
@@ -197,10 +196,10 @@ public abstract class CustomerAccount extends Account {
     
     /** transfer money to another account */
     public void transfer(CustomerAccount otherAccount, double amount){
-        if(exists(otherAccount)) {
-            if (amount <= this.balance) {
-                double convertedAmount = amount;
-                try {
+        try{
+            if(otherAccount != null && exists(otherAccount)) {
+                if(ReadFileUtil.checkIfEnoughBalance(this, amount)){
+                    double convertedAmount = amount;
                     if(!otherAccount.currencyType.equalsIgnoreCase(this.currencyType)){
                         CurrencyUtil currencyUtil = CurrencyUtil.getCurrencyUtil();
                         convertedAmount = currencyUtil.convert(this.currencyType,amount, otherAccount.getCurrencyType());
@@ -211,12 +210,12 @@ public abstract class CustomerAccount extends Account {
                     // Add log to transaction history
                     addToTransactionHistory("transfer",amount,this);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (CsvException e) {
-                    e.printStackTrace();
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
         }
     }
     
@@ -249,11 +248,13 @@ public abstract class CustomerAccount extends Account {
         }
     }
 
-    //TODO: check availability
     public void withdraw(double amount){
         try {
-            updateBalance(-amount);
-            addToTransactionHistory("withdraw",amount,this);
+            if(ReadFileUtil.checkIfEnoughBalance(this, amount)){
+                updateBalance(-amount);
+                addToTransactionHistory("withdraw",amount,this);
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -295,7 +296,24 @@ public abstract class CustomerAccount extends Account {
     }
 
     public void addToTransactionHistory(String transactionType, double amount, CustomerAccount otherAccount){
-        String contentToAdd = transactionType + "," + LocalDateUtil.getDate() + "," + amount + "," + this.currencyType + ",approved," + otherAccount.getId();
+        String contentToAdd = transactionType + "," + LocalDateUtil.getDate() + "," + amount + "," + this.currencyType + ",approved," + this.getId();
+        String contentToAddDailyReport = transactionType + "," + amount + "," + this.currencyType + ",approved" + this.id;
+        if(transactionType.equalsIgnoreCase("transfer")){
+            contentToAdd += "," + otherAccount.getId();
+            contentToAddDailyReport += "," + otherAccount.getId();
+        }
         WriteFileUtil.writeLine(ReadFileUtil.getPathToUserDataPath("UserActivityData", this.id + "").getAbsolutePath(), contentToAdd);
+
+        // Add to daily report
+        if(!ReadFileUtil.getPathToUserDataPath("dailyReport", LocalDateUtil.getDate()).exists()){
+            try {
+                ReadFileUtil.getPathToUserDataPath("dailyReport", LocalDateUtil.getDate()).createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        WriteFileUtil.writeLine(ReadFileUtil.getPathToUserDataPath("dailyReport", LocalDateUtil.getDate()).getAbsolutePath(), contentToAddDailyReport);
     }
+
+    public abstract void loan(double amt);
 }

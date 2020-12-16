@@ -211,4 +211,9 @@ public class SecuritiesAccount extends CustomerAccount {
         }
         return "";
     }
+
+    @Override
+    public void loan(double amt) {
+        // do nothing
+    }
 }

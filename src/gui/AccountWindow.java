@@ -27,13 +27,14 @@ public class AccountWindow extends JFrame {
     private JButton transButton = new JButton("Transfer");
     private JButton actButton = new JButton("View Activity");
     private JButton secButton = new JButton("Open Security Account");
+    private JButton loanButton = new JButton("Loan");
     private JButton backButton = new JButton("Back");
     private JLabel balanceLable;
     private AccountWindow thisWindow;
 
     private CustomerAccount curAccount;
     private CustomerMainFrame prevWin;
-    
+
     public AccountWindow(CustomerAccount curAccount, CustomerMainFrame prevWin){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
@@ -55,6 +56,8 @@ public class AccountWindow extends JFrame {
             JLabel idLable = new JLabel("Checking Account: "+curAccount.getId());
             idLable.setBounds(25, 10, 400, 25);
             panel.add(idLable);
+            loanButton.setBounds(150, 110, 130, 25);
+            panel.add(loanButton);
         }else if (curAccount instanceof SavingAccount){
             //System.out.println(curAccount instanceof SavingAccount);
             JLabel idLable = new JLabel("Saving Account: "+curAccount.getId());
@@ -73,7 +76,7 @@ public class AccountWindow extends JFrame {
         balanceLable.setBounds(25, 20, 400, 25);
         panel.add(balanceLable);
     }
-    
+
     private void placeComponents(JPanel panel){
         // deposit button
         depButton.setBounds(25, 50, 80, 25);
@@ -88,7 +91,7 @@ public class AccountWindow extends JFrame {
         actButton.setBounds(150, 50, 130, 25);
         panel.add(actButton);
     }
-    
+
     public void initListener(){
         depButton.addActionListener(new ActionListener(){
             @Override
@@ -98,7 +101,7 @@ public class AccountWindow extends JFrame {
                 new DepositWindow(curAccount, frame, thisWindow);
             }
         });
-        
+
         wdButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -107,7 +110,16 @@ public class AccountWindow extends JFrame {
                 new WithdrawWindow(curAccount, frame, thisWindow );
             }
         });
-        
+
+        loanButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                // return to previous window
+                frame.dispose();
+                new LoanWindow(curAccount, frame, thisWindow );
+            }
+        });
+
         transButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -116,7 +128,7 @@ public class AccountWindow extends JFrame {
                 new TransferWindow(curAccount, frame, thisWindow);
             }
         });
-        
+
         actButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -128,7 +140,7 @@ public class AccountWindow extends JFrame {
                 }
             }
         });
-        
+
         secButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -152,7 +164,7 @@ public class AccountWindow extends JFrame {
         balanceLable.setText("Current Balance: "+curAccount.getBalance()+" "+curAccount.getCurrencyType());
         balanceLable.setBounds(25, 20, 400, 25);
     }
-    
+
 
 }
 

@@ -16,7 +16,7 @@ public class StockDataController extends DataController{
     //private StockDatabase db = new StockDatabase();
 
     public StockDataController(){
-        dataPath = "data/stockData.csv";
+        dataPath = "data/stockData/stockData.csv";
     }
 
     public List<Stock> getData() throws IOException {
@@ -49,7 +49,7 @@ public class StockDataController extends DataController{
 //        Stock stock = new Stock(symbol, company, last, change, change_percentage, volume, traded);
 //        db.addStock(stock);
 
-        FileWriter csvWriter = new FileWriter("data/stockData.csv", true);
+        FileWriter csvWriter = new FileWriter("data/stockData/stockData.csv", true);
         csvWriter.append(symbol);
         csvWriter.append(",");
         csvWriter.append(company);

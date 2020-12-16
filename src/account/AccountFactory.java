@@ -60,6 +60,7 @@ public class AccountFactory {
         }
 
         setController("checking");
+        data = controller.getAccountData(id);
         if(data != null){
             CheckingAccount account = new CheckingAccount(data.getCustomerName(), Double.parseDouble(data.getBalance()), data.getCurrencyType());
             account.setId(id);
@@ -67,6 +68,7 @@ public class AccountFactory {
         }
 
         setController("security");
+        data = controller.getAccountData(id);
         if(data != null){
             SecuritiesAccount account = new SecuritiesAccount(data.getCustomerName(), Double.parseDouble(data.getBalance()), data.getCurrencyType());
             account.setId(id);

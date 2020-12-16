@@ -91,5 +91,8 @@ public class SavingAccount extends CustomerAccount {
         return "";
     }
 
-
+    @Override
+    public void loan(double amt) {
+        // do nothing
+    }
 }

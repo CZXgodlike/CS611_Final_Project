@@ -92,7 +92,7 @@ public class TransferWindow extends JFrame {
 //                JOptionPane.showMessageDialog(null,"Transfered "+money+" to account"+aAcc);
                 // add to account object
                 frame.dispose();
-                curAccount.transfer(account, Double.parseDouble(money), 1);
+                curAccount.transfer(account, Double.parseDouble(money));
                 window.refresh();
                 prevWin.setVisible(true);
             }
