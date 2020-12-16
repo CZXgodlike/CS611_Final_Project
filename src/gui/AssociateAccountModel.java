@@ -13,6 +13,9 @@ public class AssociateAccountModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
+        if(db == null){
+            return 0;
+        }
         return db.size();
     }
 

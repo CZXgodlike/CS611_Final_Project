@@ -4,6 +4,9 @@ import controller.AssociateAccountController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class CustomerMainFrame extends JFrame {
 
@@ -17,7 +20,8 @@ public class CustomerMainFrame extends JFrame {
 
         tablePanel = new AssociateAccountTablePanel(userName);
         controller = new AssociateAccountController();
-        toolBar = new CustomerToolBar();
+        toolBar = new CustomerToolBar(userName, this);
+
 
         tablePanel.setData(controller.getData(userName));
 
@@ -27,5 +31,9 @@ public class CustomerMainFrame extends JFrame {
 
         add(tablePanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.SOUTH);
+    }
+
+    public void refresh() throws IOException {
+        tablePanel.refresh();
     }
 }

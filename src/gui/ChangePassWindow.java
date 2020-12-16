@@ -27,10 +27,10 @@ public class ChangePassWindow extends JFrame {
     private JButton submitButton = new JButton("Confirm");
     private JButton backButton = new JButton("Back");
     
-    private AssociateAccountFrame prevWin;
+    private CustomerMainFrame prevWin;
     private Customer customer;
     
-    public ChangePassWindow(AssociateAccountFrame prevWin, Customer c){
+    public ChangePassWindow(CustomerMainFrame prevWin, Customer c){
         this.prevWin = prevWin;
         this.customer = c;
         initListener();

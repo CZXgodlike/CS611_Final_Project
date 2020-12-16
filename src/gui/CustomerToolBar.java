@@ -1,5 +1,7 @@
 package gui;
 
+import assets.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ public class CustomerToolBar extends JPanel {
     private JButton newAccountButton;
     private JButton changePasswordButton;
 
-    public CustomerToolBar(){
+    public CustomerToolBar(String userName, CustomerMainFrame prevFrame){
 
         newAccountButton = new JButton("New account");
         changePasswordButton = new JButton("Change password");
@@ -25,6 +27,8 @@ public class CustomerToolBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO:
+                new OpenAccountWindow(prevFrame, userName);
+                prevFrame.dispose();
             }
         });
 
@@ -32,7 +36,13 @@ public class CustomerToolBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO:
+                new ChangePassWindow(prevFrame, new Customer(userName, null));
+                prevFrame.dispose();
             }
         });
+    }
+
+    public JButton getNewAccountButton() {
+        return newAccountButton;
     }
 }

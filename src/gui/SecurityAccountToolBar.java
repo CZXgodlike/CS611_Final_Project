@@ -20,9 +20,8 @@ public class SecurityAccountToolBar extends JPanel {
         stockMarketButton = new JButton("Stock Market");
         tradingHistoryButton = new JButton("Trading History");
         this.account = account;
-
-        //TODO: get balance of the account
         balanceLabel = new JLabel("Balance: $" + this.account.getBalance());
+
         setBorder(BorderFactory.createEtchedBorder());
         setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 5));
 
@@ -54,5 +53,9 @@ public class SecurityAccountToolBar extends JPanel {
                 }
             }
         });
+    }
+
+    public void refresh(){
+        this.balanceLabel = new JLabel("Balance: $" + this.account.getBalance());
     }
 }

@@ -1,6 +1,7 @@
 package gui;
 
 import assets.AccountInformation;
+import controller.AssociateAccountController;
 import controller.CustomerAccountInformationController;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.List;
 
 public class AssociateAccountTablePanel extends JPanel {
@@ -15,11 +17,12 @@ public class AssociateAccountTablePanel extends JPanel {
     private JTable table;
     private AssociateAccountModel model;
     private String userName;
-    private CustomerAccountInformationController controller;
+    private AssociateAccountController controller;
 
     public AssociateAccountTablePanel(String userName){
         model = new AssociateAccountModel();
         table = new JTable(model);
+        controller = new AssociateAccountController();
 
         Border innerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         Border outerBorder = BorderFactory.createTitledBorder("Account Overview");
@@ -46,5 +49,9 @@ public class AssociateAccountTablePanel extends JPanel {
     }
 
     public void setData(List<AccountInformation> data){model.setData(data);}
+
+    public void refresh() throws IOException {
+        model.setData(controller.getData(userName));
+    }
 
 }

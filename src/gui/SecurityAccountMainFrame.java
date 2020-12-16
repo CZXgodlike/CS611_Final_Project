@@ -16,7 +16,7 @@ public class SecurityAccountMainFrame extends JFrame {
     public SecurityAccountMainFrame(SecuritiesAccount account) throws IOException {
 
         tablePanel = new UserStockDataTablePanel(account);
-        controller = new UserStockDataController(Integer.toString(account.getId()));
+        controller = new UserStockDataController(account.getId());
         toolBar = new RefreshToolBar();
         buttonToolBar = new SecurityAccountToolBar(account);
 
@@ -33,6 +33,7 @@ public class SecurityAccountMainFrame extends JFrame {
             @Override
             public void refreshEventOccurred() throws IOException {
                 tablePanel.refresh();
+                buttonToolBar.refresh();
             }
         });
     }

@@ -27,7 +27,7 @@ public class StockMarketToolBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    refreshListener.refreshEventOccured();
+                    refreshListener.refreshEventOccurred();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
