@@ -16,7 +16,7 @@ import java.util.List;
 public class CheckingAccount extends CustomerAccount{
 
     public CheckingAccount(String accountName, double amount, String currencyType){
-        super(String accountName, amount, currencyType);
+        super(accountName, amount, currencyType);
     }
 
     public CheckingAccount(String accountName){
@@ -74,7 +74,7 @@ public class CheckingAccount extends CustomerAccount{
         File currAccountFile = ReadFileUtil.getPathToAccountData("checkingAccounts");
         List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
         for(String[] d: data){
-            if(Integer.parseInt(d[0]) == this.id){
+            if(d[0].equals(this.id)){
                 d[1] = "" + (balance);
             }
         }
