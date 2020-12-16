@@ -96,7 +96,7 @@ public class LoginWindow extends JFrame {
                     JOptionPane.showMessageDialog(null,"registered");
                     frame.dispose();
                     // go to user GUI
-                    return;
+                    new AssociateAccountFrame(username);
                 }
             }
         });
