@@ -23,6 +23,7 @@ public class AssociateAccountTablePanel extends JPanel {
         model = new AssociateAccountModel();
         table = new JTable(model);
         controller = new AssociateAccountController();
+        this.userName = userName;
 
         Border innerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         Border outerBorder = BorderFactory.createTitledBorder("Account Overview");
@@ -52,6 +53,7 @@ public class AssociateAccountTablePanel extends JPanel {
 
     public void refresh() throws IOException {
         model.setData(controller.getData(userName));
+        model.fireTableDataChanged();
     }
 
 }
