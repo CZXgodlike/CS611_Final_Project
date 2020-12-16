@@ -53,7 +53,7 @@ public class UserStockDataTablePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-
+                new SellStockIntegerTextFrame( model.getValueAt(row, 0), account);
             }
         });
 

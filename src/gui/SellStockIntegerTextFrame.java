@@ -20,10 +20,15 @@ public class SellStockIntegerTextFrame extends JFrame {
                 if(account.sell(id, number)){
                     JOptionPane.showMessageDialog(new JFrame(), "Sold successfully!");
                 } else {
-                    JOptionPane.showMessageDialog(new JFrame(), "Failed to buy!", "Oops!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(new JFrame(), "Failed to sell!", "Oops!", JOptionPane.ERROR_MESSAGE);
                 }
                 dispose();
             }
         });
+
+        add(panel);
+
+        setVisible(true);
+        setSize(450,200);
     }
 }

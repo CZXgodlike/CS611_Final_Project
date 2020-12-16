@@ -34,7 +34,7 @@ public class StockDisplayModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    public String getValueAt(int rowIndex, int columnIndex) {
         Stock stock = db.get(rowIndex);
 
         return switch (columnIndex) {

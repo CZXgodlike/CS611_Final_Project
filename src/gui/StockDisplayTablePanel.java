@@ -49,7 +49,7 @@ public class StockDisplayTablePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                new BuyStockIntegerTextFrame((String) tableModel.getValueAt(row, 0), account);
+                new BuyStockIntegerTextFrame(tableModel.getValueAt(row, 0), account);
             }
         });
 

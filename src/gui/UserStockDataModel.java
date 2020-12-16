@@ -29,7 +29,7 @@ public class UserStockDataModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
+    public String getValueAt(int rowIndex, int columnIndex) {
         UserStockData stockData = data.get(rowIndex);
 
         return switch (columnIndex){
