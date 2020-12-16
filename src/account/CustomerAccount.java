@@ -2,7 +2,7 @@ package account;
 
 import assets.Customer;
 import utils.*;
-import assets.Stock;
+import assets.*;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -29,7 +29,7 @@ public abstract class CustomerAccount extends Account {
         this("",0,"USD");
     }
 
-    public String getName(){ return this.accountName;)
+    public String getName(){ return this.accountName;}
         
     public abstract void open();
 
@@ -40,7 +40,7 @@ public abstract class CustomerAccount extends Account {
             CSVReader reader = new CSVReader(new FileReader(toEdit));
             List<String[]> data = reader.readAll();;
             for(String[] d: data){
-                if(d[0].equals(this.name)){
+                if(d[0].equals(this.accountName)){
                     String accounts = d[2];
                     if(accounts.length() == 0){
                         accounts += startingSymbol + id;
@@ -99,7 +99,7 @@ public abstract class CustomerAccount extends Account {
         try {
             List<String[]> data = new CSVReader(new FileReader(customerData)).readAll();
             for(String[] d: data){
-                if(d[0].equalsIgnoreCase(this.name)){
+                if(d[0].equalsIgnoreCase(this.accountName)){
                     String[] accounts = d[2].split(";");
                     String newData = "";
                     for(String account: accounts){
@@ -140,14 +140,14 @@ public abstract class CustomerAccount extends Account {
         return "";
     }
 
-    public void transfer(Account acct, double amount, int addOrSub){
+    public void transfer(CustomerAccount acct, double amount, int addOrSub){
         File customerData = this.getCustomerData();
         try {
             CSVReader reader = new CSVReader(new FileReader(customerData));
             List<String[]> info = reader.readAll();
             if(info.size() >= 1){
                 String pathToAcctInfo = info.get(0)[2];
-                String currPathToAcctInfo = pathToAcctInfo + "\\" + this.name + ".csv";
+                String currPathToAcctInfo = pathToAcctInfo + "\\" + this.accountName + ".csv";
                 reader = new CSVReader(new FileReader(currPathToAcctInfo));
                 info = reader.readAll();
                 double currentAcctBalance = Double.parseDouble(info.get(0)[1]);
@@ -155,7 +155,7 @@ public abstract class CustomerAccount extends Account {
                 info.get(0)[1] = currentAcctBalance + "";
                 CSVWriter writer = new CSVWriter(new FileWriter(currPathToAcctInfo));
                 writer.writeAll(info);
-                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.name + ".csv";
+                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.accountName + ".csv";
                 reader = new CSVReader(new FileReader(targetPathToAcctInfo));
                 info = reader.readAll();
                 currentAcctBalance = Double.parseDouble(info.get(0)[1]);
@@ -273,13 +273,13 @@ public abstract class CustomerAccount extends Account {
         return exists(fileName, acc.getId());
     }
 
-    public boolean exists(String fileName, int accID){
+    public boolean exists(String fileName, String accID){
         boolean exists = false;
         File checking = ReadFileUtil.getPathToAccountData(fileName);
         try {
             List<String[]> checkingData = new CSVReader(new FileReader(checking)).readAll();
             for(String[] data: checkingData){
-                if(Integer.parseInt(data[0]) == accID){
+                if(data[0].equalsIgnoreCase(accID)){
                     exists = true;
                 }
             }

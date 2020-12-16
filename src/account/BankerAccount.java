@@ -18,7 +18,7 @@ public class BankerAccount extends Account {
     
     /** Constructor */
     public BankerAccount(){
-        super("Banker",000000);
+        super();
         customers = new ArrayList<Customer>();
     }
     
@@ -31,7 +31,7 @@ public class BankerAccount extends Account {
         List<Account> accounts = customer.getAccounts();
         // display each account that customer has
         for(Account a: accounts){
-            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
+//            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
         }
     }
     

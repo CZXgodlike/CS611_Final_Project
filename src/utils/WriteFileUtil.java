@@ -54,7 +54,7 @@ public class WriteFileUtil{
             List<String[]> data = reader.readAll();
             int i;
             for (i = 0; i < data.size(); i++) {
-                if (Integer.parseInt(data.get(i)[0]) == (acct.getId())) {
+                if (data.get(i)[0].equalsIgnoreCase(acct.getId())) {
                     data.remove(i);
                 }
             }

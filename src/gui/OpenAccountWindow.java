@@ -78,13 +78,13 @@ public class OpenAccountWindow extends JFrame {
                 String money = moneyText.getText();
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to account info
-                JOptionPane.showMessageDialog(null,uniqueID+" "+curType+" "+money);
+//                JOptionPane.showMessageDialog(null,uniqueID+" "+curType+" "+money);
                 if (accountType.equals("Saving")){
-                    SavingAccount acc = new SavingAccount(this.accountName,money,curType);
-                    acc.open();
+//                    SavingAccount acc = new SavingAccount(this.accountName,money,curType);
+//                    acc.open();
                 }else{
-                    CheckingAccount acc = new CheckingAccount(this.accountName,money,curType);
-                    acc.open();
+//                    CheckingAccount acc = new CheckingAccount(this.accountName,money,curType);
+//                    acc.open();
                 }
                 // Back to customer window
                 frame.dispose();

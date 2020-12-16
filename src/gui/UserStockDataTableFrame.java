@@ -16,8 +16,8 @@ public class UserStockDataTableFrame extends JFrame {
 
     public UserStockDataTableFrame(SecuritiesAccount account) throws IOException {
         tablePanel = new UserStockDataTablePanel(account);
-        controller = new UserStockDataController(Integer.toString(account.getId()));
-        System.out.println(Integer.toString(account.getId()));
+        controller = new UserStockDataController(account.getId());
+        System.out.println(account.getId());
         toolBar = new RefreshToolBar();
 
         setSize(750, 500);

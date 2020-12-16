@@ -34,7 +34,7 @@ public class SavingAccount extends CustomerAccount {
         File currAccountFile = ReadFileUtil.getPathToAccountData("savingAccounts");
         List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
         for(String[] d: data){
-            if(Integer.parseInt(d[0]) == this.id){
+            if(d[0].equalsIgnoreCase(this.id)){
                 d[1] = "" + (balance);
             }
         }
@@ -51,7 +51,7 @@ public class SavingAccount extends CustomerAccount {
                 List<String[]> data = reader.readAll();
                 boolean customerExists = false;
                 for(String[] d: data){
-                    if(d[0].equalsIgnoreCase(this.name)){
+                    if(d[0].equalsIgnoreCase(this.accountName)){
                         customerExists = true;
                     }
                 }

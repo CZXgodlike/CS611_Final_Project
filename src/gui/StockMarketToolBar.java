@@ -23,16 +23,16 @@ public class StockMarketToolBar extends JToolBar {
 
         add(refreshButton);
 
-        refreshButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    refreshListener.refreshEventOccured();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-        });
+//        refreshButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                try {
+//                    refreshListener.refreshEventOccured();
+//                } catch (IOException ioException) {
+//                    ioException.printStackTrace();
+//                }
+//            }
+//        });
     }
 
     private ImageIcon createIcon(String path){

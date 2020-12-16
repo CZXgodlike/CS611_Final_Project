@@ -29,7 +29,7 @@ public class UserStockDataTablePanel extends JPanel {
         model = new UserStockDataModel();
         table = new JTable(model);
         menu = new JPopupMenu();
-        controller = new UserStockDataController(Integer.toString(account.getId()));
+        controller = new UserStockDataController(account.getId());
 
         JMenuItem sell = new JMenuItem("sell");
         menu.add(sell);

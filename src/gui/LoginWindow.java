@@ -61,14 +61,14 @@ public class LoginWindow extends JFrame {
                 String pass = new String(passText.getPassword());
                 // if user is banker, check banker pass
                 if (username.equals("admin")){
-                    if (ReadFileUtil.getField("data/AccountData/bankerAccount.csv",1,1).equals(pass)){
-                        JOptionPane.showMessageDialog(null,"Login as banker");
-                        frame.dispose();
-                        // jump to banker GUI
-                        new BankerAccountMainFrame();
-                    }else{
-                        JOptionPane.showMessageDialog(null,"Wrong password for Banker");
-                    }
+//                    if (ReadFileUtil.getField("data/AccountData/bankerAccount.csv",1,1).equals(pass)){
+//                        JOptionPane.showMessageDialog(null,"Login as banker");
+//                        frame.dispose();
+//                        // jump to banker GUI
+//                        new BankerAccountMainFrame();
+//                    }else{
+//                        JOptionPane.showMessageDialog(null,"Wrong password for Banker");
+//                    }
                 } else if (ReadFileUtil.findMatch("data/customerData.csv",new int[]{0, 1}, new String[]{username,pass})){
                     JOptionPane.showMessageDialog(null,"Login success");
                     frame.dispose();
