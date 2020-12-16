@@ -45,13 +45,15 @@ public class ChangePassWindow extends JFrame {
     private void placeComponents(JPanel panel){
         // Enter password
         panel.setLayout(null);
+        passLabel.setBounds(25, 30, 100, 25);
         panel.add(passLabel);
-        passText.setBounds(105, 30, 165, 25);
+        passText.setBounds(135, 30, 165, 25);
         panel.add(passText);
         // Re enter pass
         panel.setLayout(null);
+        passLabel.setBounds(25, 60, 100, 25);
         panel.add(passLabel2);
-        passText.setBounds(105, 30, 165, 25);
+        passText.setBounds(135, 60, 165, 25);
         panel.add(passText2);
         // Button
         submitButton.setBounds(25, 100, 80, 25);
