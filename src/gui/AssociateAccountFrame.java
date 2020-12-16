@@ -1,3 +1,4 @@
+/*
 package gui;
 
 import controller.AssociateAccountController;
@@ -14,7 +15,7 @@ public class AssociateAccountFrame extends JFrame {
 
         super("Accounts");
 
-        tablePanel = new AssociateAccountTablePanel(userName);
+        tablePanel = new AssociateAccountTablePanel(userName, this);
         controller = new AssociateAccountController();
 
         tablePanel.setData(controller.getData(userName));
@@ -27,3 +28,4 @@ public class AssociateAccountFrame extends JFrame {
     }
 
 }
+*/

@@ -27,10 +27,10 @@ public class OpenSecAccountWindow extends JFrame {
     private JButton submitButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
     
-    private AccountWindow prevWin;
+    private CustomerMainFrame prevWin;
     private String userName;
     
-    public OpenSecAccountWindow(AccountWindow prevWin, String userName){
+    public OpenSecAccountWindow(CustomerMainFrame prevWin, String userName){
         this.prevWin = prevWin;
         this.userName = userName;
         this.moneyText.setDocument(new NumericTextControl());
@@ -72,8 +72,13 @@ public class OpenSecAccountWindow extends JFrame {
                 String curType = currencySelect.getSelectedItem().toString();
                 // for testing, should be add to secAccount info
                 JOptionPane.showMessageDialog(null,userName+" "+curType+" "+money);
-                new SecuritiesAccount(userName, money, curType);
+                new SecuritiesAccount(userName, money, curType).open();
                 frame.dispose();
+                try {
+                    prevWin.refresh();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 prevWin.setVisible(true);
             }
         });

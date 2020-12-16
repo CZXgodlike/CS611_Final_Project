@@ -18,7 +18,7 @@ public class CustomerMainFrame extends JFrame {
 
         super("Accounts");
 
-        tablePanel = new AssociateAccountTablePanel(userName);
+        tablePanel = new AssociateAccountTablePanel(userName, this);
         controller = new AssociateAccountController();
         toolBar = new CustomerToolBar(userName, this);
 

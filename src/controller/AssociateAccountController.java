@@ -23,6 +23,9 @@ public class AssociateAccountController {
         List<AccountInformation> data = new ArrayList<>();
 
         try {
+            if(getAssociateAccounts(userName) == null){
+                return null;
+            }
             for(String account: getAssociateAccounts(userName)){
                 data.add(new AccountInformation(account));
             }
@@ -31,6 +34,15 @@ public class AssociateAccountController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private boolean hasAccount(String userName, String id) throws IOException{
+        for(String ID: getAssociateAccounts(userName)){
+            if(id.equals(ID.substring(1))){
+                return true;
+            }
+        }
+        return false;
     }
 
     private List<String> getAssociateAccounts(String userName) throws IOException {
@@ -60,10 +72,22 @@ public class AssociateAccountController {
 
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(",");
+            if(data.length <= 2){
+                continue;
+            }
             associateAccountInformationList.add(new AssociateAccountInformation(Arrays.asList(data)));
         }
         csvReader.close();
 
         return associateAccountInformationList;
+    }
+
+    public String getUserName(String id) throws IOException{
+        for(AssociateAccountInformation information: readData()){
+            if(hasAccount(information.getUserName(), id)){
+                return information.getUserName();
+            }
+        }
+        return null;
     }
 }

@@ -1,5 +1,8 @@
 package gui;
 
+import account.AccountFactory;
+import account.CustomerAccount;
+import account.SecuritiesAccount;
 import assets.AccountInformation;
 import controller.AssociateAccountController;
 import controller.CustomerAccountInformationController;
@@ -18,8 +21,10 @@ public class AssociateAccountTablePanel extends JPanel {
     private AssociateAccountModel model;
     private String userName;
     private AssociateAccountController controller;
+    private AccountFactory factory;
+    private CustomerAccount account;
 
-    public AssociateAccountTablePanel(String userName){
+    public AssociateAccountTablePanel(String userName, CustomerMainFrame prev){
         model = new AssociateAccountModel();
         table = new JTable(model);
         controller = new AssociateAccountController();
@@ -37,11 +42,28 @@ public class AssociateAccountTablePanel extends JPanel {
                 table.getSelectionModel().setSelectionInterval(row, row);
                 String accountType = (String) table.getModel().getValueAt(row, 0);
                 String id = (String) table.getModel().getValueAt(row, 1);
-                //TODO: Create an object of account
 
 
                 if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    //TODO: Create GUI of that account
+                    factory = new AccountFactory(accountType, id);
+                    try {
+                        account = factory.createAccount();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+
+                    if(accountType.equalsIgnoreCase("security account")){
+                        if(account instanceof SecuritiesAccount){
+                            try {
+                                new SecurityAccountMainFrame((SecuritiesAccount) account);
+                                //prev.dispose();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }
+                    } else {
+                        new AccountWindow(account, prev);
+                    }
                 }
             }
         });

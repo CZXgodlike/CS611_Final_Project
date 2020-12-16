@@ -21,6 +21,8 @@ public class SecurityAccountToolBar extends JPanel {
         tradingHistoryButton = new JButton("Trading History");
         this.account = account;
         balanceLabel = new JLabel("Balance: $" + this.account.getBalance());
+        System.out.println(account.toString());
+        System.out.println(account.getBalance());
 
         setBorder(BorderFactory.createEtchedBorder());
         setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 5));

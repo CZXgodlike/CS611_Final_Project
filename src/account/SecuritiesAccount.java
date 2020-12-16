@@ -1,6 +1,7 @@
 package account;
 
-import assets.*;
+import assets.CustomerAccountInformation;
+import assets.Stock;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
@@ -138,7 +139,7 @@ public class SecuritiesAccount extends CustomerAccount {
         File currAccountFile = ReadFileUtil.getPathToAccountData("securityAccounts");
         List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
         for(String[] d: data){
-            if(d[0].equalsIgnoreCase(this.id)){
+            if(d[0].equals(this.id)){
                 d[1] = "" + (balance);
             }
         }
@@ -201,6 +202,7 @@ public class SecuritiesAccount extends CustomerAccount {
             List<CustomerAccountInformation> info = customerInfoController.getData();
             for(CustomerAccountInformation i: info){
                 if(i.getId().equalsIgnoreCase("" + this.id)){
+                    //System.out.println("ture");
                     return i.getBalance();
                 }
             }

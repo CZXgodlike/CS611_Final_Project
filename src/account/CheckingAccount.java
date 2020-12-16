@@ -74,12 +74,17 @@ public class CheckingAccount extends CustomerAccount{
         File currAccountFile = ReadFileUtil.getPathToAccountData("checkingAccounts");
         List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
         for(String[] d: data){
-            if(d[0].equalsIgnoreCase(this.id)){
+            if(d[0].equals(this.id)){
                 d[1] = "" + (balance);
             }
         }
         WriteFileUtil.writeFile(currAccountFile, data);
     }
+
+//    @Override
+//    public void display() {
+//        // display info in GUI
+//    }
 
     public String getBalance() {
         CustomerAccountInformationController customerInfoController = new CustomerAccountInformationController("checking");

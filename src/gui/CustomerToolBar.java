@@ -26,7 +26,7 @@ public class CustomerToolBar extends JPanel {
         newAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO:
+
                 new OpenAccountWindow(prevFrame, userName);
                 prevFrame.dispose();
             }
@@ -35,7 +35,7 @@ public class CustomerToolBar extends JPanel {
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO:
+
                 new ChangePassWindow(prevFrame, new Customer(userName, null));
                 prevFrame.dispose();
             }

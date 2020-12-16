@@ -26,11 +26,13 @@ public class DepositWindow extends JFrame {
     private JButton backButton = new JButton("back");
 
     private CustomerAccount curAccount;
-    private AccountWindow prevWin;
+    private JFrame prevWin;
+    private AccountWindow window;
     
-    public DepositWindow(CustomerAccount curAccount, AccountWindow prevWin){
+    public DepositWindow(CustomerAccount curAccount, JFrame prevWin, AccountWindow window){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
+        this.window = window;
         this.depositText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
@@ -69,7 +71,7 @@ public class DepositWindow extends JFrame {
     }
     
     public void initListener(){
-        submitButton.addActionListener(new ActionListener(){
+        confirmButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 String money = depositText.getText();
@@ -77,6 +79,7 @@ public class DepositWindow extends JFrame {
                 // add to account object
                 curAccount.deposit(Double.parseDouble(money));
                 frame.dispose();
+                window.refresh();
                 prevWin.setVisible(true);
             }
         });

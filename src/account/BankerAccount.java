@@ -7,7 +7,7 @@ package account;
 * @note Part of final
 */
 import assets.*;
-import services.*;
+import services.StockMarket;
 
 import java.io.File;
 import java.util.*;
@@ -27,13 +27,13 @@ public class BankerAccount extends Account {
     }
     
     /** Checkup a specific customer */
-    public void checkUp(Customer customer){
-        List<Account> accounts = customer.getAccounts();
-        // display each account that customer has
-        for(Account a: accounts){
+//    public void checkUp(Customer customer){
+//        List<Account> accounts = customer.getAccounts();
+//        // display each account that customer has
+//        for(Account a: accounts){
 //            if(a instanceof CustomerAccount) ((CustomerAccount) a).display();
-        }
-    }
+//        }
+//    }
     
     /** Update price of a stock */
     public void updatePrice(Stock stock){

@@ -2,7 +2,7 @@ package account;
 
 import assets.Customer;
 import utils.*;
-import assets.*;
+import assets.Stock;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -28,6 +28,7 @@ public abstract class CustomerAccount extends Account {
     public CustomerAccount(){
         this("",0,"USD");
     }
+
     public String getName(){ return this.name;}
         
     public abstract void open();
@@ -131,15 +132,15 @@ public abstract class CustomerAccount extends Account {
             if (acct instanceof CheckingAccount) {
                 return "C";
             } else if (acct instanceof SavingAccount) {
-                return "S";
-            } else if (acct instanceof SecuritiesAccount) {
                 return "A";
+            } else if (acct instanceof SecuritiesAccount) {
+                return "S";
             }
         }
         return "";
     }
 
-    public void transfer(CustomerAccount acct, double amount, int addOrSub){
+    public void transfer(Account acct, double amount, int addOrSub){
         File customerData = this.getCustomerData();
         try {
             CSVReader reader = new CSVReader(new FileReader(customerData));
@@ -154,7 +155,7 @@ public abstract class CustomerAccount extends Account {
                 info.get(0)[1] = currentAcctBalance + "";
                 CSVWriter writer = new CSVWriter(new FileWriter(currPathToAcctInfo));
                 writer.writeAll(info);
-                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.name + ".csv";
+                String targetPathToAcctInfo = pathToAcctInfo + "\\" + acct.id + ".csv";
                 reader = new CSVReader(new FileReader(targetPathToAcctInfo));
                 info = reader.readAll();
                 currentAcctBalance = Double.parseDouble(info.get(0)[1]);
@@ -236,7 +237,7 @@ public abstract class CustomerAccount extends Account {
         return balance;
     }
 
-    public void deposit(int amount){
+    public void deposit(double amount){
         try {
             updateBalance(amount);
             addToTransactionHistory("deposit",amount,this);
@@ -248,7 +249,8 @@ public abstract class CustomerAccount extends Account {
         }
     }
 
-    public void withdraw(int amount){
+    //TODO: check availability
+    public void withdraw(double amount){
         try {
             updateBalance(-amount);
             addToTransactionHistory("withdraw",amount,this);
@@ -278,7 +280,7 @@ public abstract class CustomerAccount extends Account {
         try {
             List<String[]> checkingData = new CSVReader(new FileReader(checking)).readAll();
             for(String[] data: checkingData){
-                if(data[0].equalsIgnoreCase(accID)){
+                if(data[0].equals(accID)){
                     exists = true;
                 }
             }

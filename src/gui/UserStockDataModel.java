@@ -20,6 +20,9 @@ public class UserStockDataModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
+        if(data == null){
+            return 0;
+        }
         return data.size();
     }
 

@@ -24,7 +24,12 @@ public class UserStockDataController extends DataController {
     }
 
     private List<UserStockData> readData() throws IOException {
-        BufferedReader csvReader = new BufferedReader(new FileReader(dataPath));
+        BufferedReader csvReader = null;
+        try {
+            csvReader = new BufferedReader(new FileReader(dataPath));
+        } catch (FileNotFoundException e) {
+            return null;
+        }
         List<UserStockData> dataList = new ArrayList<>();
         String row;
         //csvReader.readLine(); //skip the first line

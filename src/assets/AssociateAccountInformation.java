@@ -8,6 +8,7 @@ public class AssociateAccountInformation {
     private String associateAccounts;
 
     public AssociateAccountInformation(List<String> data){
+
         this.userName = data.get(0);
         this.associateAccounts = data.get(2);
     }

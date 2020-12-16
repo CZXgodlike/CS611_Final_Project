@@ -18,6 +18,10 @@ public abstract class Account{
         this.id = UUID.randomUUID().toString();
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /** Utilities */
     public String getId(){return this.id;}
 

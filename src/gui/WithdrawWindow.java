@@ -27,11 +27,13 @@ public class WithdrawWindow extends JFrame {
     private JButton backButton = new JButton("back");
 
     private CustomerAccount curAccount;
-    private AccountWindow prevWin;
+    private JFrame prevWin;
+    private AccountWindow window;
     
-    public WithdrawWindow(CustomerAccount curAccount, AccountWindow prevWin){
+    public WithdrawWindow(CustomerAccount curAccount, JFrame prevWin, AccountWindow window){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
+        this.window = window;
         this.withdrawText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
@@ -70,14 +72,17 @@ public class WithdrawWindow extends JFrame {
     }
     
     public void initListener(){
-        submitButton.addActionListener(new ActionListener(){
+        confirmButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 String money = withdrawText.getText();
                 JOptionPane.showMessageDialog(null,"Withdraw "+money+" from current account.");
                 // add to account object
-                curAccount.subBalance(Double.parseDouble(money));
+                curAccount.withdraw(Double.parseDouble(money));
+                frame.dispose();
+                window.refresh();
                 prevWin.setVisible(true);
+
             }
         });
         

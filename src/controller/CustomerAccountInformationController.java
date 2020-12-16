@@ -41,4 +41,18 @@ public class CustomerAccountInformationController extends DataController{
 
         return information;
     }
+
+
+
+    public CustomerAccountInformation getAccountData(String id) throws IOException {
+        AssociateAccountController controller = new AssociateAccountController();
+
+        for(CustomerAccountInformation data: getData()){
+            if(data.getId().equals(id)){
+                data.setCustomerName(controller.getUserName(id));
+                return data;
+            }
+        }
+        return null;
+    }
 }

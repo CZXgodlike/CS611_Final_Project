@@ -14,7 +14,7 @@ public class ActivityHistoryFrame extends JFrame {
         super("Activity history");
 
         String path = "data/UserActivityData/" + id + ".csv";
-        System.out.println(path);
+        //System.out.println(path);
         tablePanel = new ActivityHistoryTablePanel();
         controller = new ActivityHistoryController(path);
 

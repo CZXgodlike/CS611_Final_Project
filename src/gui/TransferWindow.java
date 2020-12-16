@@ -29,11 +29,13 @@ public class TransferWindow extends JFrame {
     private JButton submitButton = new JButton("Submit");
 
     private CustomerAccount curAccount;
-    private AccountWindow prevWin;
+    private JFrame prevWin;
+    private AccountWindow window;
     
-    public TransferWindow(CustomerAccount curAccount, AccountWindow prevWin){
+    public TransferWindow(CustomerAccount curAccount, JFrame prevWin, AccountWindow window){
         this.curAccount = curAccount;
         this.prevWin = prevWin;
+        this.window = window;
         this.transText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
@@ -61,6 +63,11 @@ public class TransferWindow extends JFrame {
         panel.add(transLabel);
         transText.setBounds(105, 30, 165, 25);
         panel.add(transText);
+        // Transfer money
+        aAccLabel.setBounds(30, 60, 80, 25);
+        panel.add(aAccLabel);
+        aAccText.setBounds(105, 60, 165, 25);
+        panel.add(aAccText);
         // confirm button
         confirmButton.setBounds(25, 100, 80, 25);
         panel.add(confirmButton);
@@ -71,13 +78,22 @@ public class TransferWindow extends JFrame {
     }
     
     public void initListener(){
-        submitButton.addActionListener(new ActionListener(){
+        confirmButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 String money = transText.getText();
+                String id = aAccText.getText();
+                CustomerAccount account = null;
+                try {
+                    account = new AccountFactory(id).findAccount();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 //                JOptionPane.showMessageDialog(null,"Transfered "+money+" to account"+aAcc);
                 // add to account object
-                curAccount.subBalance(Double.parseDouble(money));
+                frame.dispose();
+                curAccount.transfer(account, Double.parseDouble(money), 1);
+                window.refresh();
                 prevWin.setVisible(true);
             }
         });
