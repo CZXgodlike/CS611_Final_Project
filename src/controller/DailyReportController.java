@@ -28,7 +28,12 @@ public class DailyReportController extends DataController{
     }
 
     private List<DailyTransaction> readData() throws IOException {
-        BufferedReader csvReader = new BufferedReader(new FileReader(dataPath));
+        BufferedReader csvReader = null;
+        try {
+            csvReader = new BufferedReader(new FileReader(dataPath));
+        } catch (FileNotFoundException e) {
+            return null;
+        }
         List<DailyTransaction> transactions = new ArrayList<>();
         String row;
         //csvReader.readLine(); //skip the first line
