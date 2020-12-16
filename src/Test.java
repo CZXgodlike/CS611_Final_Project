@@ -93,6 +93,7 @@ public class Test {
                 SecuritiesAccount acct = (SecuritiesAccount) accountsForLeo.get(2);
                 acct.buy("AAPL",2);
                 acct.sell("AAPL",3);
+                System.out.println(acct.getBalance());
             }
 
 

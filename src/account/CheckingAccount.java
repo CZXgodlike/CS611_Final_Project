@@ -1,6 +1,8 @@
 package account;
 
+import assets.CustomerAccountInformation;
 import com.opencsv.CSVWriter;
+import controller.CustomerAccountInformationController;
 import utils.*;
 
 import com.opencsv.CSVReader;
@@ -82,5 +84,20 @@ public class CheckingAccount extends CustomerAccount{
     @Override
     public void display() {
         // display info in GUI
+    }
+
+    public String getBalance() {
+        CustomerAccountInformationController customerInfoController = new CustomerAccountInformationController("checking");
+        try {
+            List<CustomerAccountInformation> info = customerInfoController.getData();
+            for(CustomerAccountInformation i: info){
+                if(i.getId().equalsIgnoreCase("" + this.id)){
+                    return i.getBalance();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

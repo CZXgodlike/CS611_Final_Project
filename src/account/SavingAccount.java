@@ -1,7 +1,9 @@
 package account;
 
+import assets.CustomerAccountInformation;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import controller.CustomerAccountInformationController;
 import utils.ReadFileUtil;
 import utils.WriteFileUtil;
 
@@ -81,6 +83,21 @@ public class SavingAccount extends CustomerAccount {
 
             WriteFileUtil.removeLineFromCustomerAccountData(savingAccountFile.getAbsolutePath(), this);
         }
+    }
+
+    public String getBalance() {
+        CustomerAccountInformationController customerInfoController = new CustomerAccountInformationController("saving");
+        try {
+            List<CustomerAccountInformation> info = customerInfoController.getData();
+            for(CustomerAccountInformation i: info){
+                if(i.getId().equalsIgnoreCase("" + this.id)){
+                    return i.getBalance();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 

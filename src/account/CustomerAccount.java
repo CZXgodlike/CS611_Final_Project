@@ -234,9 +234,7 @@ public abstract class CustomerAccount extends Account {
         return new File(pathRelative.toUri());
     }
 
-    public double getBalance() {
-        return balance;
-    }
+    public abstract String getBalance();
 
     public String getCurrencyType() {
         return currencyType;

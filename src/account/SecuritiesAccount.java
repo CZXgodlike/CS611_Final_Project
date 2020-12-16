@@ -1,5 +1,6 @@
 package account;
 
+import assets.CustomerAccountInformation;
 import assets.Stock;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -7,7 +8,7 @@ import com.opencsv.exceptions.CsvException;
 import utils.LocalDateUtil;
 import utils.ReadFileUtil;
 import utils.WriteFileUtil;
-import controller.StockDataController;
+import controller.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -193,5 +194,20 @@ public class SecuritiesAccount extends CustomerAccount {
         File tradingHistory = ReadFileUtil.getPathToUserDataPath("TradingHistory", this.id+"");
         String tradeContents = buyOrSell+ "," + LocalDateUtil.getDate() + "," + value + "," + this.currencyType + "," + stockID;
         WriteFileUtil.writeLine(tradingHistory.getAbsolutePath(),tradeContents);
+    }
+
+    public String getBalance() {
+        CustomerAccountInformationController customerInfoController = new CustomerAccountInformationController("security");
+        try {
+            List<CustomerAccountInformation> info = customerInfoController.getData();
+            for(CustomerAccountInformation i: info){
+                if(i.getId().equalsIgnoreCase("" + this.id)){
+                    return i.getBalance();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

@@ -49,7 +49,7 @@ public class AccountWindow extends JFrame {
     private void displayInfo(CustomerAccount curAccount){
         if (curAccount instanceof CheckingAccount){
             panel.add(new JLabel("Checking Account "+curAccount.getId()));
-            if(curAccount.getBalance()>5000){
+            if(Double.parseDouble(curAccount.getBalance())>5000){
                 secButton.setBounds(150, 60, 130, 25);
                 panel.add(secButton);
             }

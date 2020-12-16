@@ -14,11 +14,11 @@ public class CustomerAccountInformationController extends DataController{
 
     public CustomerAccountInformationController(String accountType) {
         if(accountType.equals("saving")){
-            dataPath = "data/savingAccounts.csv";
+            dataPath = "data/AccountData/savingAccounts.csv";
         } else if (accountType.equals("checking")){
-            dataPath = "data/checkingAccounts.csv";
+            dataPath = "data/AccountData/checkingAccounts.csv";
         } else {
-            dataPath = "data/securityAccounts.csv";
+            dataPath = "data/AccountData/securityAccounts.csv";
         }
     }
 
