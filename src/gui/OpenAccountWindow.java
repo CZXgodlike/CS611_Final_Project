@@ -29,9 +29,11 @@ public class OpenAccountWindow extends JFrame {
     private JButton backButton = new JButton("back");
     
     private AssociateAccountFrame prevWin;
+    private String accountName;
     
-    public OpenAccountWindow(AssociateAccountFrame prevWin){
+    public OpenAccountWindow(AssociateAccountFrame prevWin, String accountName){
         this.prevWin = prevWin;
+        this.accountName = accountName;
         this.moneyText.setDocument(new NumericTextControl());
         initListener();
         frame.setLocationRelativeTo(null);
