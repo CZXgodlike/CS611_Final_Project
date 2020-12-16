@@ -32,7 +32,6 @@ public class WriteFileUtil{
             while ((row = csvReader.readLine()) != null) {
                 String[] data = row.split(",");
                 if(data[keyIndex].equals(key)){
-                    return data(fieldIndex);
                     data[fIndex] = target;
                 }
                 fileBuffer += String.join(", ", data);
@@ -44,11 +43,9 @@ public class WriteFileUtil{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return row;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     public static void removeLineFromCustomerAccountData(String path, CustomerAccount acct) {
@@ -61,7 +58,10 @@ public class WriteFileUtil{
                     data.remove(i);
                 }
             }
-            CSVWriter writer = new CSVWriter(new FileWriter(path));
+            CSVWriter writer = new CSVWriter(new FileWriter(path), CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.NO_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
             writer.writeAll(data);
             writer.close();
             reader.close();
@@ -70,6 +70,39 @@ public class WriteFileUtil{
         } catch (CsvException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void removeLineFromStockDataWhenNoneLeft(String path) {
+        try {
+            CSVReader reader = new CSVReader(new FileReader(path));
+            List<String[]> data = reader.readAll();
+            int i;
+            for (i = 0; i < data.size(); i++) {
+                if (Integer.parseInt(data.get(i)[3]) == 0) {
+                    data.remove(i);
+                }
+            }
+            CSVWriter writer = new CSVWriter(new FileWriter(path), CSVWriter.DEFAULT_SEPARATOR,
+                    CSVWriter.NO_QUOTE_CHARACTER,
+                    CSVWriter.NO_ESCAPE_CHARACTER,
+                    CSVWriter.DEFAULT_LINE_END);
+            writer.writeAll(data);
+            writer.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeFile(File customerData, List<String[]> data) throws IOException {
+        CSVWriter writer = new CSVWriter(new FileWriter(customerData), CSVWriter.DEFAULT_SEPARATOR,
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.NO_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        writer.writeAll(data);
+        writer.close();
     }
 
 }

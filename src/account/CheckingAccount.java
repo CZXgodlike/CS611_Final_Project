@@ -18,11 +18,11 @@ public class CheckingAccount extends CustomerAccount{
     }
 
     public CheckingAccount(String accountName){
-        this(accountName, 0, 0.0,"USD");
+        super(accountName, 0.0,"USD");
     }
 
     public CheckingAccount(){
-        this("",0,0.0,"USD");
+        this("");
     }
 
     public void open(){
@@ -57,20 +57,26 @@ public class CheckingAccount extends CustomerAccount{
         super.close(this);
         File checkingAccountFile = ReadFileUtil.getPathToAccountData("checkingAccounts");
         if(checkingAccountFile.exists()){
-
             WriteFileUtil.removeLineFromCustomerAccountData(checkingAccountFile.getAbsolutePath(), this);
         }
     }
 
     
     public void transfer(CustomerAccount otherAccount, double amount){
-        this.subBalance(amount);
-        otherAccount.addBalance(amount);
+        super.transfer(otherAccount,amount);
     }
-    
-    public void updateBalance(){
-        // put new updated balance in
-//        WriteFileUtil.writeField(this.id,1,balance);
+
+    public void updateBalance(double value) throws IOException, CsvException {
+        balance = balance + value;
+        System.out.println("Checking balance" + balance);
+        File currAccountFile = ReadFileUtil.getPathToAccountData("checkingAccounts");
+        List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
+        for(String[] d: data){
+            if(Integer.parseInt(d[0]) == this.id){
+                d[1] = "" + (balance);
+            }
+        }
+        WriteFileUtil.writeFile(currAccountFile, data);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package account;
 
+import assets.Customer;
 import utils.*;
 import assets.Stock;
 
@@ -22,22 +23,21 @@ public abstract class CustomerAccount extends Account {
         this.currencyType = currencyType;
     }
 
+    public CustomerAccount(String accountName, double amount, String currencyType){
+        super(accountName, (int) (Math.random()*299));
+        this.balance = amount;
+        this.currencyType = currencyType;
+    }
+
     public CustomerAccount(){
-        this("",-1,0,"USD");
+        this("",0,"USD");
     }
 
     public abstract void open();
 
     protected void open(CustomerAccount acctType){
         File toEdit = getCustomerData();
-        String startingSymbol;
-        if(acctType instanceof CheckingAccount){
-            startingSymbol = "C";
-        } else if(acctType instanceof SavingAccount){
-            startingSymbol = "S";
-        } else{
-            startingSymbol = "A";
-        }
+        String startingSymbol = getSymbolForAccount(acctType);
         try {
             CSVReader reader = new CSVReader(new FileReader(toEdit));
             List<String[]> data = reader.readAll();;
@@ -45,20 +45,16 @@ public abstract class CustomerAccount extends Account {
                 if(d[0].equals(this.name)){
                     String accounts = d[2];
                     if(accounts.length() == 0){
-                        accounts+= startingSymbol + id;
+                        accounts += startingSymbol + id;
                     } else{
-                        accounts += d[2] + ";" + startingSymbol + id;
+                        accounts += ";" + startingSymbol + id;
                     }
                     d[2] = accounts;
                 }
             }
-            CSVWriter writer = new CSVWriter(new FileWriter(toEdit),CSVWriter.DEFAULT_SEPARATOR,
-                    CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.NO_ESCAPE_CHARACTER,
-                    CSVWriter.DEFAULT_LINE_END);
-            writer.writeAll(data);
-            writer.close();
-            reader.close();
+            WriteFileUtil.writeFile(toEdit, data);
+            File newFile = ReadFileUtil.getPathToUserDataPath("UserActivityData",this.id + "");
+            newFile.createNewFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -97,28 +93,10 @@ public abstract class CustomerAccount extends Account {
     }
 
     public abstract void close();
-        // Delete the account and all relevant info
-//        File tempFile = getCustomerData();
-//
-//        if(tempFile.exists()){
-//            if(tempFile.delete()){
-//                System.out.println("File successfully deleted");
-//            }
-//            else{
-//                System.out.println("File does not exist and thus was not deleted");
-//            }
-//
-//        }
 
     public void close(CustomerAccount acct){
-        String searchSymbol;
-        if(acct instanceof CheckingAccount){
-            searchSymbol = "C";
-        } else if(acct instanceof SavingAccount){
-            searchSymbol = "S";
-        } else{
-            searchSymbol = "A";
-        }
+        // Removes the account referenced in CustomerData.csv
+        String searchSymbol = getSymbolForAccount(acct);
         File customerData = getCustomerData();
         try {
             List<String[]> data = new CSVReader(new FileReader(customerData)).readAll();
@@ -135,13 +113,33 @@ public abstract class CustomerAccount extends Account {
                             }
                         }
                     }
+                    d[2] = newData;
                 }
             }
+            WriteFileUtil.writeFile(customerData, data);
+
+            // Remove the files associated with account
+            File newFile = ReadFileUtil.getPathToUserDataPath("UserActivityData",this.id + "");
+            newFile.delete();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CsvException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getSymbolForAccount(Account account){
+        if(account instanceof CustomerAccount) {
+            CustomerAccount acct = (CustomerAccount) account;
+            if (acct instanceof CheckingAccount) {
+                return "C";
+            } else if (acct instanceof SavingAccount) {
+                return "S";
+            } else if (acct instanceof SecuritiesAccount) {
+                return "A";
+            }
+        }
+        return "";
     }
 
     public void transfer(Account acct, double amount, int addOrSub){
@@ -180,25 +178,52 @@ public abstract class CustomerAccount extends Account {
     }
 
     public void addBalance(double amount){
-        this.balance += amount;
-        this.updateBalance();
+//        this.balance += amount;
+        try {
+            this.updateBalance(amount);
+        } catch (IOException | CsvException e){
+            e.printStackTrace();
+        }
     }
     
     public void subBalance(double amount){
-        this.balance -= amount;
-        this.updateBalance();
+//        this.balance -= amount;
+        try {
+            this.updateBalance(-amount);
+        } catch (IOException | CsvException e){
+            e.printStackTrace();
+        }
     }
 
-    public abstract void updateBalance();
+    public abstract void updateBalance(double valueToAdd) throws IOException, CsvException;
     
     public void getDailyReport(Date date){
         // We could use this function to check how their stocks changed in on a certain date?
     }
 
-    /** transfer money to another accoun */
+    /** transfer money to another account */
     public void transfer(CustomerAccount otherAccount, double amount){
-        if(exists(otherAccount)){
+        if(exists(otherAccount)) {
+            if (amount <= this.balance) {
+                double convertedAmount = amount;
+                try {
+                    if(!otherAccount.currencyType.equalsIgnoreCase(this.currencyType)){
+                        CurrencyUtil currencyUtil = CurrencyUtil.getCurrencyUtil();
+                        convertedAmount = currencyUtil.convert(this.currencyType,amount, otherAccount.getCurrencyType());
+                    }
+                    updateBalance(-amount);
+                    otherAccount.updateBalance(convertedAmount);
 
+                    // Add log to transaction history
+                    addToTransactionHistory("transfer",amount,this);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (CsvException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
     
@@ -222,18 +247,65 @@ public abstract class CustomerAccount extends Account {
     }
 
     public void deposit(int amount){
-        addBalance((double) amount);
+        try {
+            updateBalance(amount);
+            addToTransactionHistory("deposit",amount,this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
     }
 
     public void withdraw(int amount){
-        subBalance((double) amount);
+        try {
+            updateBalance(-amount);
+            addToTransactionHistory("withdraw",amount,this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean exists(CustomerAccount acc){
-        return true;
+        String fileName;
+        if(acc instanceof CheckingAccount){
+            fileName = "checkingAccounts";
+        } else if(acc instanceof SavingAccount){
+            fileName = "savingAccounts";
+        } else{
+            fileName = "securityAccounts";
+        }
+        return exists(fileName, acc.getId());
+    }
+
+    public boolean exists(String fileName, int accID){
+        boolean exists = false;
+        File checking = ReadFileUtil.getPathToAccountData(fileName);
+        try {
+            List<String[]> checkingData = new CSVReader(new FileReader(checking)).readAll();
+            for(String[] data: checkingData){
+                if(Integer.parseInt(data[0]) == accID){
+                    exists = true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+
     }
 
     public abstract void display();
 
-
+    public void addToTransactionHistory(String transactionType, double amount, CustomerAccount otherAccount){
+        String contentToAdd = transactionType + "," + LocalDateUtil.getDate() + "," + amount + "," + this.currencyType + ",approved," + otherAccount.getId();
+        WriteFileUtil.writeLine(ReadFileUtil.getPathToUserDataPath("UserActivityData", this.id + "").getAbsolutePath(), contentToAdd);
+    }
 }

@@ -12,13 +12,21 @@ import java.io.IOException;
 import java.util.List;
 
 public class SavingAccount extends CustomerAccount {
+
+    public SavingAccount(String accountName, int id, double amount, String currencyType){
+        super(accountName, id, amount, currencyType);
+    }
+
+    public SavingAccount(String accountName){
+        super(accountName, 0.0,"USD");
+    }
+
+    public SavingAccount(){
+        this("");
+    }
     
     public void transaction(){
 
-    }
-
-    public void transfer(){
-        
     }
 
     public void display(){
@@ -26,8 +34,17 @@ public class SavingAccount extends CustomerAccount {
     }
 
     @Override
-    public void updateBalance() {
-
+    public void updateBalance(double value) throws IOException, CsvException {
+        balance = balance + value;
+        System.out.println("saving balance" + balance);
+        File currAccountFile = ReadFileUtil.getPathToAccountData("savingAccounts");
+        List<String[]> data = new CSVReader(new FileReader(currAccountFile)).readAll();
+        for(String[] d: data){
+            if(Integer.parseInt(d[0]) == this.id){
+                d[1] = "" + (balance);
+            }
+        }
+        WriteFileUtil.writeFile(currAccountFile, data);
     }
 
     @Override

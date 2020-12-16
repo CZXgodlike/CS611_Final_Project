@@ -4,12 +4,16 @@
 
 package utils;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class ReadFileUtil{
     
@@ -77,4 +81,37 @@ public class ReadFileUtil{
         Path pathRelative = pathBase.relativize(pathAbsolute);
         return new File(pathRelative.toUri());
     }
+
+    public static File getPathToCustomerData(){
+        Path pathAbsolute = Paths.get("../../data/customerData.csv");
+        Path pathBase = Paths.get("../../");
+        Path pathRelative = pathBase.relativize(pathAbsolute);
+        return new File(pathRelative.toUri());
+    }
+
+    public static File getPathToConversionData(){
+        Path pathAbsolute = Paths.get("../../data/conversionRate.csv");
+        Path pathBase = Paths.get("../../");
+        Path pathRelative = pathBase.relativize(pathAbsolute);
+        return new File(pathRelative.toUri());
+    }
+
+    public static File getPathToUserDataPath(String dirName, String id){
+        Path pathAbsolute = Paths.get("../../data/" + dirName + "/" + id +".csv");
+        Path pathBase = Paths.get("../../");
+        Path pathRelative = pathBase.relativize(pathAbsolute);
+        return new File(pathRelative.toUri());
+    }
+
+    public static String[] lookUpIDInFile(File file, String id) throws IOException, CsvException {
+        CSVReader reader = new CSVReader(new FileReader(file));
+        List<String[]> data = reader.readAll();
+        for(String[] d: data){
+            if(d[0].equalsIgnoreCase(id)){
+                return d;
+            }
+        }
+        return null;
+    }
+
 }

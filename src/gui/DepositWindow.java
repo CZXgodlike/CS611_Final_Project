@@ -24,6 +24,7 @@ public class DepositWindow extends JFrame {
     private JTextField depositText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
+    private JButton submitButton = new JButton("Submit");
 
     private CustomerAccount curAccount;
     private AccountWindow prevWin;
@@ -38,7 +39,7 @@ public class DepositWindow extends JFrame {
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        displayInfo(curAccount, accWin);
+        displayInfo(curAccount);
         placeComponents(panel);
         frame.setVisible(true);
     }
@@ -64,6 +65,8 @@ public class DepositWindow extends JFrame {
         // back buttom
         backButton.setBounds(190, 100, 80, 25);
         panel.add(backButton);
+
+        // Need at add submit button
     }
     
     public void initListener(){

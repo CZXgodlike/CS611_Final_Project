@@ -10,10 +10,10 @@ public class CustomerAccountFactory {
             return new CheckingAccount(userName);
 
         } else if(accountType.equalsIgnoreCase("SAVING")){
-            return new SavingAccount();
+            return new SavingAccount(userName);
 
         } else if(accountType.equalsIgnoreCase("SECURITIES")){
-            return new SecuritiesAccount();
+            return new SecuritiesAccount(userName);
         }
 
         return null;

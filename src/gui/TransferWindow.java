@@ -26,6 +26,7 @@ public class TransferWindow extends JFrame {
     private JTextField aAccText = new JTextField();
     private JButton confirmButton = new JButton("confirm");
     private JButton backButton = new JButton("back");
+    private JButton submitButton = new JButton("Submit");
 
     private CustomerAccount curAccount;
     private AccountWindow prevWin;
@@ -40,7 +41,7 @@ public class TransferWindow extends JFrame {
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel.setLayout(null);
-        displayInfo(curAccount, accWin);
+        displayInfo(curAccount);
         placeComponents(panel);
         frame.setVisible(true);
     }
@@ -66,6 +67,7 @@ public class TransferWindow extends JFrame {
         // back buttom
         backButton.setBounds(190, 100, 80, 25);
         panel.add(backButton);
+        // Need to add submit button
     }
     
     public void initListener(){
@@ -73,7 +75,7 @@ public class TransferWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e){
                 String money = transText.getText();
-                JOptionPane.showMessageDialog(null,"Transfered "+money+" to account"+aAcc);
+//                JOptionPane.showMessageDialog(null,"Transfered "+money+" to account"+aAcc);
                 // add to account object
                 curAccount.subBalance(Double.parseDouble(money));
                 prevWin.setVisible(true);
