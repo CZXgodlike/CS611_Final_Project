@@ -118,7 +118,7 @@ public class AccountWindow extends JFrame {
             public void actionPerformed(ActionEvent e){
                 // return to previous window
                 frame.dispose();
-                new OpenSecAccountWindow(prevWin);
+                new OpenSecAccountWindow(prevWin, curAccount.getName());
             }
         });
     }
