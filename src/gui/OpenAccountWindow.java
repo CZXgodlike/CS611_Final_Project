@@ -47,9 +47,9 @@ public class OpenAccountWindow extends JFrame {
         // Account type selection
         accType.setBounds(30, 30, 150, 25);
         panel.add(accType);
-        currencySelect.setBounds(200, 30, 165, 25);
-        currencySelect.addItem("Saving");
-        currencySelect.addItem("Checking");
+        accSelect.setBounds(200, 30, 165, 25);
+        accSelect.addItem("Saving");
+        accSelect.addItem("Checking");
         panel.add(currencySelect);
         // money add to new account
         moneyLabel.setBounds(30, 60, 150, 25);
