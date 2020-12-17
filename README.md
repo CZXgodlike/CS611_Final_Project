@@ -23,7 +23,7 @@ Mainly used as assistant class for wrapping and parsing data when read file from
 Contain different types of controllers used for controlling(reading and writing) data from different csv files.
   
 * **GUIs:**
-Classes for making all the GUIs of the ATM.
+Classes for creating all the GUIs of the ATM.
 
 For data storage, we chose to store data into csv files in data folder.
 
@@ -60,3 +60,25 @@ used by banker account. Can add a new stock data at the left panel or delete exi
 The main GUI structure is shown as below:
 
 ![GUI](GUI.png)
+
+### IV. Running command
+
+* **For Windows:**
+
+`cd src`
+
+`javac -cp ".;/../commons-lang3-3.11.jar;../opencsv-5.3.jar" BankATM.java`
+
+`cd ..`
+
+`java -cp src BankATM`
+
+* **For macOS and Unix:**
+  
+`cd src`
+
+`javac -cp ".:/../commons-lang3-3.11.jar:../opencsv-5.3.jar" BankATM.java`
+
+`cd ..`
+
+`java -cp src BankATM`
